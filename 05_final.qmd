@@ -1,0 +1,1221 @@
+---
+title: "Term Assignment"
+author: "Gabriela Abril Reyes"
+date: "05/10/2024"
+bibliography: 1bibliography.bib
+format: html
+editor: visual
+---
+
+## Neighborhood Determinants of Opioid Use in Madison, Wisconsin
+
+### Context and Background
+
+```{r, include=FALSE}
+library(gt)
+library(sf)
+library(tidycensus)
+library(tidyverse)
+library(tigris)
+library(dplyr)
+library(tmap)
+library(viridis)
+library(ggplot2)
+library(RColorBrewer)
+library(scales)
+```
+
+```{r, include=FALSE}
+#map geography
+wi_trt <- tracts(state = "WI") |> 
+  filter(COUNTYFP == "025")
+
+ggplot()+
+  geom_sf(data = wi_trt) 
+
+wi_place <- places(state = "WI") %>%
+  filter(NAME == "Madison")
+
+test <- st_intersection(wi_trt, wi_place)
+
+```
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_sf(data = test, fill="gray")+
+  geom_sf(data = wi_place, color = "blue", fill = NA)+       
+  labs(title = "Madison City Geography",
+       caption = "Source: Census data ACS") +
+  theme_minimal() +
+  theme(panel.background = element_blank()) 
+```
+
+Madison, Wisconsin is the capital city of its state, located west of Milwaukee, and the largest city within Dane County. It is located in the center of the county 77 miles west of Milwaukee and 122 miles northwest of Chicago. Madison surrounds the city of Monona and other villages. The city shares borders with four big suburbs and eight additional smaller suburbs. Its total area comprises 94.03 square miles, of which 76.79 is land and 17.24 is water. For this reason, it is usually described as The City of Four Lakes due to its geographical conditions. Downtown Madison is situated on an isthmus between Lakes Monona and Mendota, giving it a character of “lake-city-lake". Its geography has given a characterization of landscaped lakeshores, parks, and bicycle paths. Madison is also a city that was subject to redlining and established a chronic racial segregation that has contributed to increasing health inequities in the area.
+
+To understand Madison's demographic context, it is crucial to note that the population trend of the central urbanized area growth projection is almost 5 times higher than smaller urbanized and rural zones outside of the metropolitan area. The population growth in the City of Madison has been steady for decades, at an incremental increase of just 1% per year, even during the Great Recession of 2007–2009. There is a majority of white population with minimal interracial mixing. However, the Hispanic population grew at a rate of 101% between 2000 to 2010, compared to the Non-Hispanic population growth rate of 11%. Nowadays, each minority group represents similar proportions of the city’s population, that is approximately 7 percent each.
+
+```{r, echo=FALSE}
+#population ethnicities
+place_ethnicity_2021<- get_acs(geography = "place", state = "WI", variables = c("B03002_001", "B03002_003","B03002_004", "B03002_006", "B03002_012"), year=2021, survey="acs5", output="wide") |>  
+  filter(NAME == "Madison city, Wisconsin") |>  
+  mutate(
+    pop_white = B03002_003E,
+    pop_black = B03002_004E,
+    pop_asian = B03002_006E,
+    pop_other = B03002_001E - B03002_003E - B03002_004E - B03002_006E - B03002_012E,
+    pop_latino = B03002_012E,
+    p_white = pop_white / B03002_001E,
+    p_black = pop_black / B03002_001E,
+    p_asian = pop_asian / B03002_001E,
+    p_other = pop_other / B03002_001E,
+    p_latino = pop_latino / B03002_001E) |>  
+ select(NAME, pop_white, pop_black, pop_asian, pop_other, pop_latino, p_white, p_black, p_asian, p_other, p_latino)
+
+place_ethnicity_2011<-get_acs(geography = "county", state = "WI", variables = c("B03002_001", "B03002_003","B03002_004", "B03002_006", "B03002_012"), year=2011, survey="acs5", output="wide") |>  
+  filter(NAME == "Madison city, Wisconsin") |>  
+  mutate(
+    pop_white = B03002_003E,
+    pop_black = B03002_004E,
+    pop_asian = B03002_006E,
+    pop_other = B03002_001E - B03002_003E - B03002_004E - B03002_006E - B03002_012E,
+    pop_latino = B03002_012E,
+    p_white = pop_white / B03002_001E,
+    p_black = pop_black / B03002_001E,
+    p_asian = pop_asian / B03002_001E,
+    p_other = pop_other / B03002_001E,
+    p_latino = pop_latino / B03002_001E) |>  
+ select(NAME, pop_white, pop_black, pop_asian, pop_other, pop_latino, p_white, p_black, p_asian, p_other, p_latino)
+
+ethnicity<-bind_rows(place_ethnicity_2021, place_ethnicity_2011)
+
+ethnicity |> gt() |> 
+  fmt_number(2:6, decimals = 0) |> 
+  fmt_percent(7:11, decimals = 1) |> 
+  tab_spanner(label = "Non-Hispanic Population", columns = c(pop_white:pop_other)) |> 
+  cols_label(NAME = "Geography",
+             pop_white = "White",
+             pop_black = "Black",
+             pop_asian = "Asian",
+             pop_other = "Other",
+             pop_latino = "Latinx") |> 
+  tab_spanner(label = "Non-Hispanic Population (%)", columns = c(p_white:p_other)) |> 
+  cols_label(p_white = "White",
+             p_black = "Black",
+             p_asian = "Asian",
+             p_other = "Other",
+             p_latino = "Latinx")
+```
+
+```{r, include=FALSE}
+#mapping
+mdn_race <- get_decennial(
+  geography = "tract",
+  state = "WI",
+  county = "Dane",
+  variables = c(
+    Hispanic = "P2_002N",
+    White = "P2_005N",
+    Black = "P2_006N",
+    Native = "P2_007N",
+    Asian = "P2_008N"
+  ),
+  summary_var = "P2_001N",
+  year = 2020,
+  geometry = TRUE
+) %>%
+  mutate(percent = 100 * (value / summary_value))           
+```
+
+```{r, echo=FALSE}
+#facet map of different races in the county
+tm_shape(mdn_race) + 
+  tm_facets(by = "variable", scale.factor = 4) + 
+  tm_fill(col = "percent",
+          style = "quantile",
+          n = 6,
+          palette = "PuBu",
+          title = "Percentage") +  # Close tm_fill() function here
+  tm_layout(bg.color = "white", 
+            panel.label.bg.color = "white") +
+  tm_credits("Source: 2020 US Census")  # Add a caption here
+
+```
+
+Madison has a population of 269,840, making it the second most populous city in Wisconsin. Regarding neighborhood constitution throughout history, the city is divided in major areas, such as the University of Wisconsin campus at the east and downtown; the north and south were areas predominately occupied by less income population and the west side by higher income inhabitants. A defining event on Madison’s development was in 1954 when the university developed a farm on the western edge, which has impulsed growth along the suburbs. As seen on the scatter plot, income concentration is closely linked to race, being the white population the one with the greatest concentration.
+
+```{r, include=FALSE}
+library(dplyr)
+
+dl_vars <- c(
+  MHHI = "B19013_001")
+
+mdn_trt <- tracts(state = "WI", county = c("025"), cb = TRUE,  year = 2020) |> 
+  filter(substr(GEOID, 0, 5) %in% c("55025")) |> 
+                    erase_water(area_threshold = .9, year = 2020)
+
+wi_income <- get_acs(
+  geography = "tract",
+  state = "WI",
+  county = c(025),
+  tracts = c(001704, 001705, 001402, 002100, 002602),
+  variables = dl_vars,
+  year = 2020,
+  output = "wide"
+) 
+
+dl_vars <- c(
+  co_MHHI = "B19013_001")
+
+wi_income_co <- get_acs(
+  geography = "county",
+  state = "WI",
+  county = c(025),
+  tracts = c(001704, 001705, 001402, 002100, 002602),
+  variables = dl_vars,
+  year = 2020,
+  output = "wide"
+)
+
+wi_income <- left_join(wi_income |> mutate(STCO = substr(GEOID, 0, 5)), wi_income_co, by=c("STCO" = "GEOID"))
+
+wi_income <- wi_income |> 
+  mutate(inc_ratio = MHHIE / co_MHHIE)
+
+wi_income <- left_join(wi_income, mdn_trt, by="GEOID")|> 
+  st_as_sf()
+```
+
+```{r, echo=FALSE}
+#different income ratios in the county 
+ggplot() +
+  geom_sf(data = wi_income, aes(fill = inc_ratio), colour = NA) +
+  labs(title = "Madison Income Ratio", fill = "Income Ratio", caption = "Source: Census data ACS") +
+  theme_minimal()
+```
+
+```{r, include=FALSE}
+dl_vars <- c(
+  White = "B03002_003",
+  Black = "B03002_004",
+  Native = "B03002_005",
+  Asian = "B03002_006",
+  HIPI = "B03002_007",
+  Hispanic = "B03002_012",
+  Poptot = "B03002_001"
+)
+
+wi_race <- get_acs(
+  geography = "tract",
+  state = "WI",
+  county = c(025),
+  tracts = c(001704, 001705, 001402, 002100, 002602),
+  variables = dl_vars,
+  year = 2021,
+  output = "wide"
+) 
+
+wi_race_co <-
+  wi_race |> 
+  group_by(STCO = substr(GEOID, 0, 5)) |> 
+  summarise(
+    co_WhiteE = sum(WhiteE, na.rm = TRUE),
+    co_WhiteM = moe_sum(WhiteM, WhiteE),
+    co_BlackE = sum(BlackE, na.rm = TRUE),
+    co_BlackM = moe_sum(BlackM, BlackE),
+    co_NativeE = sum(NativeE, na.rm = TRUE),
+    co_NativeM = moe_sum(NativeM, NativeE),
+    co_AsianE = sum(AsianE, na.rm = TRUE),
+    co_AsianM = moe_sum(AsianM, AsianE),
+    co_HIPIE = sum(HIPIE, na.rm = TRUE),
+    co_HIPIM = moe_sum(HIPIM, HIPIE),
+    co_HispanicE = sum(HispanicE, na.rm = TRUE),
+    co_HispanicM = moe_sum(HispanicM, HispanicE),
+    co_PoptotE = sum(PoptotE, na.rm = TRUE),
+    co_PoptotM = moe_sum(PoptotM, PoptotE),
+  ) |> 
+  mutate(County =
+    case_when(
+      STCO == "55025" ~ "Dane"))
+```
+
+```{r, include=FALSE}
+wi_race_co |> 
+  mutate(other = co_NativeE+co_HIPIE) |> 
+  select(County, co_WhiteE, co_BlackE, co_AsianE, co_HispanicE, other, co_PoptotE) |> 
+  gt() |> 
+  fmt_number(2:7, decimals = 0) |> 
+  cols_label(
+    co_WhiteE = "White",
+    co_BlackE = "Black",
+    co_AsianE = "Asian",
+    co_HispanicE = "Hispanic",
+    other = "Other",
+    co_PoptotE = "Total"
+  ) |> 
+  summary_rows(
+    (columns = 2:7), 
+    fns = list(Total = ~sum(.)),
+    formatter = fmt_number,
+    decimals = 0) 
+```
+
+```{r, include=FALSE}
+wi_race<-left_join(wi_race |> mutate(STCO = substr(GEOID, 0,5)), wi_race_co, by= "STCO") 
+```
+
+```{r, echo=FALSE}
+wi_dataset <- left_join(wi_race, wi_income |> st_set_geometry(NULL)|> select(GEOID, MHHIE, MHHIM, co_MHHIE, co_MHHIM, inc_ratio), by="GEOID")
+
+ggplot()+
+  geom_point(data=wi_dataset, aes(x=(BlackE/PoptotE), y=inc_ratio), cex = .5, alpha = .2) +
+  labs(title = "Madison Region Income Ratio by Race", x = "Percent Black", y = "Income Ratio") +
+  scale_x_continuous(labels = scales::percent)+
+  theme_minimal() 
+
+```
+
+Madison started having urban sprawl issues in the 1970s and a plan was then proposed to create State Street as Madison's civic transit and pedestrian center, giving way to the Capitol Center building, a pioneer in providing housing in the city center. This marks special attention to the downtown area, since historically the city has had planning initiatives to increase housing offers in the center; for example, tax incremental financing and permitting before demolishing buildings and creating urban design standards that have given it national recognition for having one of the best public open space systems in the US. For the same reason, the city has been subject to several zoning restrictions, for instance prohibiting industrial and commercial uses on the lake shore.
+
+#### Opioid crisis
+
+The opioid epidemic is one of the largest non-infectious public health crises facing the United States today. The estimated national level overdose deaths increased 35% from 2020 to 2021. Although the opioid epidemic has become a national crisis, the burden of the epidemic is not equally distributed across states or across the country, therefore it is substantial to do a more nuanced examination at the local level based on the unique community needs in order to address the opioid crisis.
+
+In Wisconsin, there was an increase of 50% visits to the emergency department due to opioid overdose between 2016 and 2017 [@Healthy_Dane_Collaborative_2021]. This is partly attributed to the high potency of synthetic opioids, but it is also attributed to do social determinants. On a county scale, Dane is considered a high-risk area, according to Healthy Dane Org, a community collaborative comprised of 4 hospitals of the county, Public Health Madison and the county.
+
+```{r, include=FALSE}
+#fatal overdoses in Madison and in county - hospital data
+OVERDOSE <- read.csv("data_raw/Age_Adjusted_Death_Rate_due_to_Opioid_Overdose_County_Dane.csv")
+
+```
+
+```{r, echo=FALSE}
+#opioid deaths per population in dane county
+ggplot(OVERDOSE, aes(x = period, y = deaths..100.000.population, group = 1)) + 
+  geom_line() + 
+  geom_point() +
+  labs(x = "Year", y = "Deaths per 100,000 Population") 
+
+```
+
+Specifically, Dane County's black residents' overdose is three times higher than white residents' overdoses and there is a 575% higher increase in cocaine and opioid mortality in black people versus 184% increase in white people. Even if white consumption is much higher, mortality rates in black communities have increased greatly. Madison's overdose death rate has skyrocketed as well. Furthermore, interactions with law enforcement in the city indicate a considerable increase in illegal opioid uses and set a precedent that sheds light in areas that need greater attention within the city.
+
+```{r, include=FALSE}
+```
+
+Noting that Madison is becoming one of the main opioid hubs in the state, it is crucial to trace a linkage between opioid use concentrations with indicators of structural racism in housing, such as employment and education.
+
+#### Housing crisis
+
+Housing accessibility is a constant concern in Madison. The city has suffered a housing crisis in the past few years. The lack of affordable housing is concerning in the city, 50% of renters pay more than 30% of their income in rent, according to [@luque2019housing]. The housing crisis in Madison also means that since 2007, the number of homeowners has not changed, and all of the household growth has been just from renters. Even if there has been a historical trend of shrinking household size, which is expected to be an average of 2.03 by 2040, between 2007 and 2015, renters increased by 17,000. This represents a huge jump in need of more than 5000 units that the city has not met. Additionally, there are 7000–8000 non-student renters who are spending more than half of their income on rental units, creating severe individual economic stress. The following table systematically describes Madison's neighborhoods changes in housing tenure as well as cost burden based upon change in income.
+
+```{r, include=FALSE}
+load_packages <- c("gt", "tidycensus", "tidyverse", "sf") 
+lapply(load_packages, library, character.only = TRUE)
+rm(load_packages)
+```
+
+```{r, include=FALSE}
+source("LTDB_Prep.R")
+
+```
+
+```{r, include=FALSE}
+#dataset geometry
+variables<- c("B01003_001") #mhhi
+
+mdn_city_data <- get_acs(geography = "place",
+                         state = "55",
+                         variables = variables,
+                         year = 2019,
+                         output = "wide",
+                         survey = "acs5",
+                         geometry = TRUE)|>
+  filter(NAME == "Madison city, Wisconsin")
+
+mdn_county_data <- get_acs(geography = "tract",
+                         state = "55",
+                         variables = variables,
+                         year = 2019,
+                         output = "wide",
+                         survey = "acs5",
+                         geometry = TRUE) 
+
+mdn_city_tracts <- st_intersection(mdn_city_data, mdn_county_data)
+
+ggplot() +
+  geom_sf(data = mdn_city_tracts)
+```
+
+```{r, include=FALSE}
+mdn_income_1 <- income %>% filter(COFIPS %in% c("55025"))
+
+mdn_income <- left_join(mdn_city_tracts, mdn_income_1, by = join_by(GEOID.1 == TRTID10))
+```
+
+```{r, include=FALSE}
+mdn_income<-left_join(mdn_income, pop, by=join_by(GEOID.1 == TRTID10))
+mdn_income<-mdn_income %>% mutate(
+  winc_70 = weighted.mean(INCPC70, POP70, na.rm=TRUE),
+  winc_80 = weighted.mean(INCPC80, POP80, na.rm=TRUE),
+  winc_90 = weighted.mean(INCPC90, POP90, na.rm=TRUE),
+  winc_00 = weighted.mean(INCPC00, POP00, na.rm=TRUE),
+  winc_10 = weighted.mean(INCPC12, POP10, na.rm=TRUE),
+  winc_20 = weighted.mean(INCPC19, POP20, na.rm=TRUE)
+)
+```
+
+```{r, include=FALSE}
+mdn_income<-mdn_income %>% mutate(
+  dincome_70 = INCPC70 - winc_70,
+  dincome_80 = INCPC80 - winc_80,
+  dincome_90 = INCPC90 - winc_90,
+  dincome_00 = INCPC00 - winc_00,
+  dincome_10 = INCPC12 - winc_10,
+  dincome_20 = INCPC19 - winc_20
+)
+```
+
+```{r, include=FALSE}
+mdn_income<-mdn_income %>% mutate(
+  pincome_70 = dincome_70/winc_70,
+  pincome_80 = dincome_80/winc_80,
+  pincome_90 = dincome_90/winc_90,
+  pincome_00 = dincome_00/winc_00,
+  pincome_10 = dincome_10/winc_10,
+  pincome_20 = dincome_20/winc_20
+)
+```
+
+```{r, include=FALSE}
+income_cat <- function(x){
+  case_when(
+    between(x, -100, -.4) ~ "Very Low Income",
+    between(x, -.4, -.2) ~ "Low Income",
+    between(x, -.2, .2) ~ "Middle Income",
+    between(x, .2, .4) ~ "High Income",
+    between(x, .4, 100) ~ "Very High Income"
+  )
+}
+```
+
+```{r, include=FALSE}
+mdn_income <- mdn_income |> 
+  mutate(
+    income_cat_70 = income_cat(pincome_70),
+    income_cat_80 = income_cat(pincome_80),
+    income_cat_90 = income_cat(pincome_90),
+    income_cat_00 = income_cat(pincome_00),
+    income_cat_10 = income_cat(pincome_10),
+    income_cat_20 = income_cat(pincome_20)
+    )
+```
+
+```{r, include=FALSE}
+mdn_income_70 <- mdn_income |> 
+  group_by(income_cat = income_cat_70) |> 
+  summarise(n=n(), 
+            pop = sum(POP70, na.rm=TRUE) |> round(digits=0),
+            year = "1970")
+
+mdn_income_80 <- mdn_income |> 
+  group_by(income_cat = income_cat_80) |> 
+  summarise(n=n(), 
+            pop = sum(POP80, na.rm=TRUE) |> round(digits=0),
+            year = "1980")
+
+mdn_income_90 <- mdn_income |> 
+  group_by(income_cat = income_cat_90) |> 
+  summarise(n=n(), 
+            pop = sum(POP90, na.rm=TRUE) |> round(digits=0),
+            year = "1990")
+
+mdn_income_00 <- mdn_income |> 
+  group_by(income_cat = income_cat_00) |> 
+  summarise(n=n(), 
+            pop = sum(POP00, na.rm=TRUE) |> round(digits=0),
+            year = "2000")
+
+mdn_income_10 <- mdn_income |> 
+  group_by(income_cat = income_cat_10) |> 
+  summarise(n=n(), 
+            pop = sum(POP10, na.rm=TRUE) |> round(digits=0),
+            year = "2010")
+
+mdn_income_20 <- mdn_income |> 
+  group_by(income_cat = income_cat_20) |> 
+  summarise(n=n(), 
+            pop = sum(POP20, na.rm=TRUE) |> round(digits=0),
+            year = "2020")
+
+income_cat_lon <- bind_rows(mdn_income_70, mdn_income_80, mdn_income_90, mdn_income_00, mdn_income_10, mdn_income_20)
+rm(mdn_income_70, mdn_income_80, mdn_income_90, mdn_income_00, mdn_income_10, mdn_income_20)
+```
+
+```{r, include=FALSE}
+mdn_income_long <- mdn_income |> 
+  pivot_longer(income_cat_70:income_cat_20) |> 
+  select(GEOID.1, COUNTY, Year = name, income_cat = value) |> 
+  mutate(Year = case_when(
+  Year == "income_cat_70" ~ "1970",
+  Year == "income_cat_80" ~ "1980",
+  Year == "income_cat_90" ~ "1990",
+  Year == "income_cat_00" ~ "2000",
+  Year == "income_cat_10" ~ "2010",
+  Year == "income_cat_20" ~ "2020"))
+```
+
+```{r, include=FALSE}
+#housing change
+acs_race<-get_acs(geography = "tract", state = "WI", variables = c("B03002_001", "B03002_003", "B03002_004", "B03002_006", "B03002_012"), year = 2019, survey = "acs5", output = "wide")  |> 
+  mutate(
+  P_White = B03002_003E/B03002_001E,
+  P_Black = B03002_004E/B03002_001E,
+  P_Asian = B03002_006E/B03002_001E,
+  P_Latinx = B03002_012E/B03002_001E,
+  P_Other = (B03002_001E - B03002_003E - B03002_004E - B03002_006E - B03002_012E)/B03002_001E
+) |> select(GEOID, POP19 = B03002_001E, P_White, P_Black, P_Asian, P_Latinx, P_Other)
+```
+
+```{r, include=FALSE}
+acs_tenure<-get_acs(geography = "tract", state = "WI", table = c("B25003"), year = 2019, survey = "acs5", output = "wide")  |> mutate(
+  P_Own =B25003_002E/B25003_001E,
+  P_Rent = B25003_003E/B25003_001E) |> select(GEOID, P_Own, P_Rent)
+```
+
+```{r, include=FALSE}
+acs_cost<-get_acs(geography = "tract", state = "WI", table = c("B25106"), year = 2019, survey = "acs5", output = "wide")  |> mutate(
+  P_CostBurden = (B25106_006E + B25106_010E +B25106_014E + B25106_018E + B25106_022E + B25106_028E + B25106_032E + B25106_036E + B25106_040E+B25106_044E)/B25106_001E
+) |> select(GEOID, P_CostBurden)
+```
+
+```{r, include=FALSE}
+acs_19<-left_join(acs_tenure, acs_cost, by="GEOID")
+acs_19<-left_join(acs_19, acs_race, by="GEOID")
+```
+
+```{r, include=FALSE}
+mdn_income <- left_join(mdn_income, acs_19, by=c("GEOID.1" = "GEOID"))
+```
+
+```{r, include=FALSE}
+library(dplyr)
+
+mdn_income <- mdn_income |> 
+  mutate(
+    pincome_70 = as.numeric(pincome_70),
+    pincome_80 = as.numeric(pincome_80),
+    pincome_90 = as.numeric(pincome_90),
+    pincome_00 = as.numeric(pincome_00),
+    pincome_10 = as.numeric(pincome_10),
+    pincome_20 = as.numeric(pincome_20)
+  ) |> 
+ 
+  mutate(
+    pincome_70 = case_when(
+    between(pincome_70, -100, -.4) ~ "Very Low Income",
+    between(pincome_70, -.4, -.2) ~ "Low Income",
+    between(pincome_70, -.2, .2) ~ "Middle Income",
+    between(pincome_70, .2, .4) ~ "High Income",
+    between(pincome_70, .4, 100) ~ "Very High Income"
+  ),
+  pincome_80 = case_when(
+    between(pincome_80, -100, -.4) ~ "Very Low Income",
+    between(pincome_80, -.4, -.2) ~ "Low Income",
+    between(pincome_80, -.2, .2) ~ "Middle Income",
+    between(pincome_80, .2, .4) ~ "High Income",
+    between(pincome_80, .4, 100) ~ "Very High Income"
+  ),
+    pincome_90 = case_when(
+    between(pincome_90, -100, -.4) ~ "Very Low Income",
+    between(pincome_90, -.4, -.2) ~ "Low Income",
+    between(pincome_90, -.2, .2) ~ "Middle Income",
+    between(pincome_90, .2, .4) ~ "High Income",
+    between(pincome_90, .4, 100) ~ "Very High Income"
+  ),
+    pincome_00 = case_when(
+    between(pincome_00, -100, -.4) ~ "Very Low Income",
+    between(pincome_00, -.4, -.2) ~ "Low Income",
+    between(pincome_00, -.2, .2) ~ "Middle Income",
+    between(pincome_00, .2, .4) ~ "High Income",
+    between(pincome_00, .4, 100) ~ "Very High Income"
+  ),
+    pincome_10 = case_when(
+    between(pincome_10, -100, -.4) ~ "Very Low Income",
+    between(pincome_10, -.4, -.2) ~ "Low Income",
+    between(pincome_10, -.2, .2) ~ "Middle Income",
+    between(pincome_10, .2, .4) ~ "High Income",
+    between(pincome_10, .4, 100) ~ "Very High Income"
+  ),
+    pincome_20 = case_when(
+    between(pincome_20, -100, -.4) ~ "Very Low Income",
+    between(pincome_20, -.4, -.2) ~ "Low Income",
+    between(pincome_20, -.2, .2) ~ "Middle Income",
+    between(pincome_20, .2, .4) ~ "High Income",
+    between(pincome_20, .4, 100) ~ "Very High Income"
+  )
+)
+```
+
+```{r, include=FALSE}
+mdn_income<-mdn_income |> 
+  mutate(pchange_70.19 = (INCPC19 - INCPC70)/INCPC70)
+```
+
+```{r, include=FALSE}
+mdn_income<-mdn_income |> 
+  mutate(change_cat_70.19 = case_when(
+    between(pchange_70.19, .2, 100) ~ "Growing",
+    between(pchange_70.19, -.2, .2) ~ "Middle",
+    between(pchange_70.19,  -100, -.2) ~ "Shrinking",
+    is.na(pchange_70.19) == "TRUE" ~ "Uncategorized",
+    pchange_70.19 == Inf ~ "Uncategorized")
+  )
+```
+
+```{r, include=FALSE}
+#population 
+mdn_income |> 
+  group_by(change_cat_70.19) |> 
+  summarise(Tracts = n(), Population = sum(POP19, na.rm=TRUE)) |> 
+  as.data.frame()|>
+  select(change_cat_70.19, Tracts, Population) |>
+  rename("Income Change" = change_cat_70.19) |> 
+  gt() |> 
+  fmt_number(3, decimals = 0)
+
+#str(mdn_income)
+```
+
+```{r, echo=FALSE}
+#housing change
+mdn_income |> 
+  group_by(change_cat_70.19) |> 
+  summarise(
+Tracts = n(), 
+P_Own = mean(P_Own, na.rm=TRUE),
+P_Rent = mean(P_Rent, na.rm=TRUE),
+P_CostBurden = mean(P_CostBurden, na.rm=TRUE)
+) |> 
+  as.data.frame()|>
+  select(change_cat_70.19, Tracts, P_Own, P_Rent, P_CostBurden) |>
+  rename("Income Change" = change_cat_70.19, "Ownership" = P_Own, "Rented" = P_Rent, "Cost Burden" = P_CostBurden) |> 
+  gt() |> 
+  fmt_percent(3:5, decimals = 1) 
+```
+
+Even if the opioid epidemic is multi-faceted in its complexity, according to [@schendl2022spatial] there is no single set of variables that can be used to explain the opioid epidemic across all geographic scales and opiate classifications. The social context of opioid use and misuse is not homogeneous for all sociodemographic populations. Social determinants play a major role in the identification of vulnerable populations to opioid use, misuse, and overdose. Generally, these social determinants include race/ethnicity, gender, age, socioeconomic status, and education level. There is a general consensus that higher concentrations of families in poverty, higher levels of unemployment, and lower levels of educational attainment (high school education or less) are associated with an increase in the rate of opioid overdoses on a national scale. In this report I will explore the entanglement between these social determinants with housing accessibility.
+
+### Approach
+
+My report analyzes how the opioid and drug use in economically vulnerable populations is tied to the housing crisis in Madison. The goal is to reveal the overall contribution that socioeconomic factors have on the opioid epidemic, and its associated effects and considerations for an intervention through housing. I decided to focus on the city of Madison due to its importance within the county and because it has often been recognized for its progressive and inclusive policies; however, little has been said about the existing barriers towards certain segments of the population.
+
+Existing research emphasizes the importance of addressing complex and underlying issues at the root of this overdose crisis, such as housing accessibility as a critical social determinant of health within the opioid epidemic. Some studies conducted in other cities of similar size in the US show that housing instability is associated with physical and mental health concerns. For example, trauma, increased mortality rates, and substance use disorders. Other recommendations include studying discriminatory policies related to housing, employment, and policing, as well as the implicit biases embedded in these processes given that they can impact the ability of vulnerable population to overcome this issue.
+
+Second, the averages in health equity conditions presented state and nationally do not adequately capture inequities between populations. I analyzed the Dane County's Community Health Needs Assessment surveys applied to different racial communities within the county. The survey showed that mental health was the most critical need linked to rent burden, as most respondents indicated that their neighborhoods do not have affordable housing.
+
+When linking housing affordability with the opioid crisis in a county level, certain racial groups are dramatically more affected. To contextualize the racial structure of the county, the following map depicts racial distribution in the county. Differences in racial presence evidence Black isolation and its dissimilarity with other races:
+
+```{r, include=FALSE}
+library(tmap)
+mdn_black <- filter(mdn_race, 
+                         variable == "Black")
+
+tm_shape(mdn_race) + 
+  tm_polygons()
+
+tm_shape(mdn_race) + 
+  tm_polygons(col = "percent")
+```
+
+```{r, echo=FALSE}
+tm_shape(mdn_black) + 
+  tm_polygons(col = "percent",
+          style = "quantile",
+          n = 5,
+          palette = "PuBu",
+          title = "Percentage of Black Population") +
+  tm_borders(col = "white") +       
+  labs(caption = "Source: Census data ACS") 
+```
+
+```{r, echo=FALSE}
+#black isolation
+wi_race  |> 
+mutate(isolation_bw = (BlackE / co_BlackE * BlackE / PoptotE)) |>   
+group_by(County) |>   
+summarise(isolation = sum(isolation_bw, na.rm=TRUE)) |>  
+gt() 
+```
+
+```{r, echo=FALSE}
+#B W dissimilarity
+wi_race  |> 
+mutate(dissim_wb = abs(BlackE / co_BlackE - WhiteE / co_WhiteE)) |>   
+group_by(County) |>   
+summarise(dissimilarity = .5*sum(dissim_wb)) |> gt() 
+```
+
+In this sense, I started linking this demographic data with a third wave of opioid use that Dane County is experiencing, in which more than half of all people who died of a drug overdose in the county between 2018 and 2020 were 25-44 years old. Nearly 2 in 3 people who died of a drug overdose death on this time period were male and the age-adjusted drug overdose death rate among Black people was more than 3 times the rate among White people. The county data reports that Black people have experienced sharp increases in drug overdose death rates in the past decade.
+
+“There is an urgent need to better understand and address the worsening racial inequities in drug overdose deaths. The rapid increase in drug overdose death rates among Black people in Dane County is related to long-standing inequities experienced by Black people, including higher rates of policing and incarceration as well as policies across sectors that negatively impact wellness and the ability of Black people to thrive.” [@deaths20].
+
+#### Precedents
+
+I depart from the work of [@luque2019housing] book, which gives an overview of the effectiveness of existing federal and state housing programs in the United States, such as the LIHTC and TIF programs. I mainly focused on Chapter 1, which reviews the case of the City of Madison in Wisconsin as an example of a mid-west city with serious housing affordability problems but strong economic fundamentals.
+
+[@schendl2022spatial] article talks about the social determinants of health framework used to identify the potential related socioeconomic factors associated with opioid use and misuse in Milwaukee County. The authors begin by establishing descriptive statistics of opioid overdose deaths and then compare them with the distribution of socioeconomic factors such as socioeconomic disadvantage, which includes poverty rate and others. The second main component includes labor occupations, low educational attainment with a focus on minority population. As a third component is the relationship between age and income inequality and finally college education. These components were related to each other and the resulting ones are the variables of the final analyses. The association of these variables with the overdose mortality rate demonstrated that the spatial influence on the opioid crisis is a whole county issue rather than an isolated problem within certain communities, which suggests the same situation for Dane County. The precedent’s workflow served as a referent to organize the data analysis steps that will be explained in the following sections.
+
+### Data Sources
+
+This research also aims to investigate how structural racism determines the vulnerability of certain population groups to be affected by the opioid epidemic. Taking as a precedent the extensive analysis of [@schendl2022spatial], for this report I limit my focus to the areas of socioeconomic disadvantage such as employment: considering levels of poverty, housing ownership and education from an intersectional lens that focuses on the Black inhabitants of the city, given the precedent conditions.
+
+The workflow of the research dragged data from the American Community Survey (ACS) 5-Year estimates using Social Explorer for population structure such as race by tract and racial isolation. I also use this source for demographic characteristics such as income relations and residential segregation. I used LTDB Data for income evolution and comparisons across the county and map them. I also work with HUD Location Affordability Index (version 3.0) and EPA EJSCREEN, to join them and create standardized scores in terms of employment and economy, housing and a combined total index that allows visualizing the opportunity level in the different areas of the city. I generate a bivariate comparison between opportunity and housing in Madison City. Finally, I include information on health outcomes from the 2022 PLACES tract-level data set, from which I will pay attention to health indicators such as overall physical health, especially strokes, as well as mental health, including depression, and cognitive disabilities.
+
+I pay particular attention to the south side of the city, specifically in the South Park Street Neighborhood. Noting that neighborhood income inequality is identified as an indicator of opioid overdose potential, additional indicators for my analysis are homelessness and race, rented and owned housing concentration by race, as well as labor occupations and educational attainment mapped in the city, to evaluate their influence on the issue. I brought data related to the latter indicators from the Madison Neighborhood Indicators Project. I also drew information from the Wisconsin Department of Health Services.
+
+### Data Description and Analysis
+
+The population growth local trends speak about the residence location decisions by comparing the different ethnicities and their income levels. In the case of Madison, minority population is mostly settled in areas located to the south and on the periphery of the city, which are the same that demonstrate the highest shortage of affordable housing, disinvestment and segregation. In the same vein, many of the historically red-lined neighborhoods in the south continue to struggle with high credit denial rates, as well as to deal with issues such as rising property values, poverty, crime, factory emissions, among others.
+
+```{r, include=FALSE}
+ggplot() +
+  geom_sf(data = mdn_income_long, aes(color = income_cat, fill = income_cat), cex = .01) +
+  facet_wrap(~Year)
+```
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_sf(data = mdn_income_long, aes(color = income_cat, fill = income_cat), size = 0.01) +
+  facet_wrap(~Year) +
+  scale_color_brewer(palette = "PuBu", name = "Income Change") +  # Change the legend title for color
+  scale_fill_brewer(palette = "PuBu", name = "Income Change") +    # Change the legend title for fill
+  theme_minimal() +
+  labs(title = NULL, subtitle = NULL, caption = "Source:  Longitudinal Tract Database (LTDB)") +  # Remove any title, subtitle, or caption
+  theme(axis.title = element_blank(),        # Remove axis titles
+        axis.text = element_blank(),         # Remove axis text
+        axis.ticks = element_blank(),        # Remove axis ticks
+        panel.border = element_blank(),      # Remove panel border
+        panel.grid.major = element_blank(),  # Remove major gridlines
+        panel.grid.minor = element_blank(),  # Remove minor gridlines
+        legend.position = "right")           # Position the legend on the right
+
+```
+
+Inhabitants of these vulnerable zones are often very close to other neighborhoods that have undergone urban renewal, and therefore there is a linkage between being more likely to development investment and become gentrified. This, in turn inflates market housing costs by restricting supply in desirable areas. Housing market conditions, in conjunction with demographic change, and economic vulnerability mark the susceptibility of neighborhoods to other problems such as displacement, exclusion and segregation. The figure above reflects the evolution of income concentration, and suggest an increase in income population in south and north areas, as a result of displacement. With the antecedents presented, we could say that future impacts of the housing affordability issue are likely to occur en different areas of the city.
+
+In the context of this crisis and in relation to the income concentration in certain zones, these neighborhoods also concentrate the largest number of renters.
+
+```{r, include=FALSE}
+#rented housing in madison 
+library(tidycensus)
+rented<- c("DP04_0046E") #rent
+
+mdn_rented <- get_acs(geography = "place",
+                         state = "55",
+                         variables = rented,
+                         year = 2019,
+                         output = "wide",
+                         survey = "acs5",
+                         geometry = TRUE)|>
+  filter(NAME == "Madison city, Wisconsin")
+
+mdn_county_rented <- get_acs(geography = "tract",
+                         state = "55",
+                         variables = rented,
+                         year = 2019,
+                         output = "wide",
+                         survey = "acs5",
+                         geometry = TRUE) 
+
+mdn_rented_tracts <- st_intersection(mdn_rented, mdn_county_rented)
+
+ggplot() +
+  geom_sf(data = mdn_rented_tracts)
+```
+
+```{r, include=FALSE}
+
+library(viridis)
+```
+
+```{r, echo=FALSE}
+#housing characteristics in Madison
+library(ggplot2)
+ggplot() +
+  geom_sf(data = mdn_rented_tracts,
+          aes(fill = DP04_0046E.1),
+          color = "white") +
+  scale_fill_viridis(name = "Rented Units",
+                     option = "plasma",
+                     na.value = "gray",
+                     breaks = scales::pretty_breaks(n = 5)) +
+  theme_minimal() +
+  labs(title = "Housing Characteristics in Madison City",
+       caption = "Source: U.S. Census Bureau, 2019 American Community Survey") +
+  theme(legend.position = "right") +
+  theme(panel.background = element_blank()) +                   
+  coord_sf(datum = NA) 
+```
+
+Middle-income students or young professionals, have experienced the inflation of housing prices in areas close to the center or the campus. However, the most affected populations in relation to concentrations of rented and owned housing are families below the poverty level, people of color, and populations without a college degree either current students or with an educational attainment less than college or high school. According to the Analysis of Impediments to the Fair Housing Choice "The ability for households to generate income is largely dependent on levels of educational attainment, which in turn creates more opportunity for choice within the housing market. Disparities in education lead to disparities in earnings, which is an indirect impediment to fair housing choice within the City."
+
+```{r, include=FALSE}
+neigh_ind <- read.csv("data_raw/nip_tr_22_data.csv")
+```
+
+```{r, include=FALSE}
+shapefile <- st_read("data_raw/nip_tr_22.shx")
+```
+
+```{r, include=FALSE}
+neigh_ind <- left_join(neigh_ind, mdn_city_tracts, by=c("geo_id" = "GEOID.1"))
+```
+
+```{r, echo=FALSE}
+# palette
+my_palette <- brewer.pal(n = 9, name = "Blues")  # Using the Blues palette with 9 colors
+
+#educational attainment map
+ggplot() +
+  geom_sf(data = neigh_ind, aes(fill = pc_nhsg, geometry = geometry), color = "white", size = 0.1) +  
+  scale_fill_gradient(name = "Parents with less than High School", labels = scales::comma,
+                      low = my_palette[1], high = my_palette[length(my_palette)]) +
+  labs(title = "Educational Attainment", caption = "Source: Madison Neighborhood Indicators Project") +
+  theme_minimal() +
+  theme(panel.background = element_blank()) +                   
+  coord_sf(datum = NA)
+```
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_sf(data = neigh_ind, aes(fill = pc_nclgg, geometry = geometry), color = "white", size = 0.1) +  
+  scale_fill_gradient(name = "Parents with less than College", labels = scales::comma,
+                      low = my_palette[1], high = my_palette[length(my_palette)]) +
+  labs(title = "Educational Attainment", caption = "Source: Madison Neighborhood Indicators Project") +
+  theme_minimal() +
+  theme(panel.background = element_blank()) +                   
+  coord_sf(datum = NA)
+```
+
+The harsh realities of the most disadvantaged groups, such as homeless, people with substance use disorder (SUD), and children contrast with the city’s solid economic growth and the shifting from a government-based economy to a consumer services system and high-tech industry.
+
+```{r, echo=FALSE}
+#unemployment 
+# Plot 
+ggplot() +
+  geom_sf(data = neigh_ind, aes(fill = pc_unem, geometry = geometry), color = "white", size = 0.1) +  
+  scale_fill_gradient(name = "Unemployment", labels = scales::comma,
+                      low = my_palette[1], high = my_palette[length(my_palette)]) +
+  labs(title = "Economy", caption = "Source: Madison Neighborhood Indicators Project") +
+  theme_minimal() +
+  theme(panel.background = element_blank()) +                   
+  coord_sf(datum = NA)
+```
+
+```{r, echo=FALSE}
+#families in poverty
+# Load a color palette package
+library(RColorBrewer)
+
+# palette
+my_palette <- brewer.pal(n = 9, name = "Blues")  # Using the Blues palette with 9 colors
+
+# Plot 
+ggplot() +
+  geom_sf(data = neigh_ind, aes(fill = pc_fmpv, geometry = geometry), color = "white", size = 0.1) +  
+  scale_fill_gradient(name = "Families in poverty", labels = scales::comma,
+                      low = my_palette[1], high = my_palette[length(my_palette)]) +
+  labs(title = "Economy", caption = "Source: Madison Neighborhood Indicators Project") +
+  theme_minimal() +
+  theme(panel.background = element_blank()) +                   
+  coord_sf(datum = NA)
+
+```
+
+```{r, echo=FALSE}
+#occupation by industry?
+```
+
+Additionally, the occupation in the industry that predominates in the different tracts can point not only to income levels but also to establishing a relationship between opioid use and overdose rates with indicators of the occupations with the greatest physical work demands and least access to paid sick leave.
+
+According to the [@impediments] of the city, due to reduction in median income in 2016, combined with rising rents, the typical Black household could only afford the typical rental in two areas in North and South Madison. This indicates a shortage of affordable housing options to the lowest income households in Madison, exacerbated by the effect of higher-income households necessarily renting down within the market.
+
+```{r, include=FALSE}
+#affordability level map
+dl_vars <- c(
+  MGR = "B25064_001")
+
+wi_rent <- get_acs(
+  geography = "tract",
+  state = "WI",
+  county = c(025),
+  tracts = c(001704, 001705, 001402, 002100, 002602),
+  variables = dl_vars,
+  year = 2020,
+  output = "wide"
+) 
+
+dl_vars <- c(
+  co_MGR = "B25064_001")
+
+wi_rent_co <- get_acs(
+  geography = "county",
+  state = "WI",
+  county = c(025),
+  tracts = c(001704, 001705, 001402, 002100, 002602),
+  variables = dl_vars,
+  year = 2020,
+  output = "wide"
+)
+
+wi_rent <- left_join(wi_rent |> mutate(STCO = substr(GEOID, 0, 5)), wi_rent_co, by=c("STCO" = "GEOID"))
+
+wi_rent <- wi_rent |> 
+  mutate(rent_ratio = MGRE / co_MGRE)
+
+wi_rent <- left_join(wi_rent, mdn_trt, by="GEOID")|> 
+  st_as_sf()
+```
+
+```{r, echo=FALSE}
+ggplot()+
+geom_sf(data=wi_rent, aes(fill=rent_ratio), colour = NA)+
+labs(title = "Medium Gross Rent in Madison", fill = "Affordability")+
+theme_minimal()
+```
+
+The map showed above, represents the gross rent values in the Madison region and county, where the darkest are the most affordable compared to the most expensive in lighter blues. What is concerning about the effects of the lack of housing affordability on the Black population is that even if they represent approximately 8% of the population; these same households represent over 50% of the homeless count in the City of Madison. Black individuals are 27 times more likely to be homeless than White individuals, 15 times more likely if American Indian rather than White, 10 times more likely if multiracial rather than White, and 7 times more likely than White Hispanic/Latino Households.
+
+The City of Madison has planned to accommodate future housing needs is through infill and redevelopment in existing and planning activity centers and in the downtown and Isthmus areas. These areas were projected to accommodate well over 50% of all new households in the city between 2010 and 2050. However, this does not ensure that minority populations have access to live in these neighborhoods, due to the social challenges that intersect.
+
+If we look at the central isthmus of the city, there are disparities in access to housing. For instance, a disparity is seen in these areas between the growing number of homeless black individuals and families. Although Madison has low levels of segregation between White population and people of color [@impediments], the index is high in segregation between White population with Black and Hispanics/Latinos population, and therefore their opportunity index as well.
+
+```{r, include=FALSE}
+DL_Year<-2020
+survey <- "acs5"
+state<-c("WI")
+source("scripts/1_Get_ACS.R")
+
+acs_vars <- list(B01001, B02001, B03001, B05002, B11001, B17001, B19013, B25002, B25003, B25077, B25106)
+
+acs_data <- acs_vars |> 
+  reduce(left_join, by = "GEOID")
+
+rm(acs_vars, B01001, B02001, B03001, B05002, B11001, B17001, B19013, B25002, B25003, B25077, B25106, DL_Year, state, survey)
+
+LAI <- read_csv("data_raw/Location_Affordability_Index_v3_-1712939122180123755.csv") |> 
+select(GEOID, 
+                    STUSAB,
+                    pct_transit_j2w,
+                    median_gross_rent,
+                    pct_hu_1_detached,
+                    job_density_simple,
+                    retail_density_simple,
+                    median_commute
+                    )
+
+ejscreen<-read_csv("data_raw/EJSCREEN_2020_StatePctile.csv") |> 
+  select(ID,
+        ACSTOTPOP,
+        CANCER,
+        RESP,
+        PTRAF,
+        PM25) |> 
+  mutate(GEOID = substr(ID, 0, 5)) |> 
+  filter(ACSTOTPOP != 0, CANCER != "None") |> 
+  group_by(GEOID) |>  
+  summarise(
+  CANCER = weighted.mean(as.numeric(CANCER), ACSTOTPOP),
+  RESP = weighted.mean(as.numeric(RESP), ACSTOTPOP),
+  PTRAF = weighted.mean(PTRAF, ACSTOTPOP),
+  PM25 = weighted.mean(as.numeric(PM25), ACSTOTPOP))
+
+dataset<- list(acs_data,  LAI, ejscreen) |> reduce(left_join, by="GEOID")
+
+rm(acs_data, LAI, ejscreen)
+```
+
+```{r, include=FALSE}
+dataset <- dataset |> 
+  filter(substr(GEOID, 0, 5) %in% c("55025"))
+
+summary(dataset)
+```
+
+```{r, include=FALSE}
+dataset <- dataset |> 
+  mutate(location = case_when(
+  substr(GEOID, 0,5) == "55025" ~ "Madison City Region, Wisconsin"
+)) 
+
+dataset |> 
+  group_by(location) |> 
+  summarise_at(vars(under18:median_commute), mean, na.rm=TRUE) |> 
+  gt()
+```
+
+```{r, include=FALSE}
+dataset_scaled<-dataset |>  
+  mutate_at(vars(under18, over65, P_Female, PNonwhite, PForeignborn, P_FHHH, Pov, MHHI, P_Own, MHV, CostBurden, CANCER, RESP, PTRAF, PM25, pct_transit_j2w, median_gross_rent, pct_hu_1_detached, job_density_simple, retail_density_simple, median_commute), list(scale=scale))
+
+dataset_scaled<-dataset_scaled |>  mutate(
+  under18_scale = under18_scale*-1,
+  over65_scale = over65_scale*-1,
+  PNonwhite_scale = PNonwhite_scale*-1,
+  PForeignborn_scale = PForeignborn_scale*-1,
+  P_FHHH_scale = P_FHHH_scale*-1,
+  Pov_scale = Pov_scale*-1,
+  CostBurden_scale = CostBurden_scale *-1,
+  CANCER_scale = CANCER_scale*-1,
+  RESP_scale = RESP_scale*-1,
+  PTRAF_scale = PTRAF_scale*-1,
+  PM25_scale = PM25_scale*-1,
+  median_gross_rent_scale = median_gross_rent_scale*-1,
+  median_commute_scale = median_commute_scale*-1
+)
+
+dataset_scaled<-dataset_scaled |> 
+  rowwise() |> 
+  mutate(
+  dem_index = sum(under18_scale, over65_scale, PNonwhite_scale, PForeignborn_scale, P_FHHH_scale, Pov_scale, na.rm=TRUE),
+  emp_index = sum(MHHI_scale, job_density_simple_scale, retail_density_simple_scale, na.rm=TRUE),
+  hou_index = sum(P_Own_scale, MHV_scale, CostBurden_scale, median_gross_rent_scale, pct_hu_1_detached_scale, na.rm=TRUE),
+  env_index = sum(CANCER_scale, RESP_scale, PTRAF_scale, PM25_scale, na.rm=TRUE),
+  tra_index = sum(pct_transit_j2w_scale, median_commute_scale,na.rm=TRUE),
+  tot_index = dem_index + emp_index + hou_index + env_index + tra_index
+) 
+```
+
+```{r, include=FALSE}
+library(scales)
+
+dataset_scaled <- dataset_scaled %>%
+  ungroup() %>%
+  mutate(
+    dem_index = rescale(dem_index, to = c(0,100)),
+    emp_index = rescale(emp_index, to = c(0,100)),
+    hou_index = rescale(hou_index, to = c(0,100)),
+    env_index = rescale(env_index, to = c(0,100)),
+    tra_index = rescale(tra_index, to = c(0,100)),
+    tot_index = rescale(tot_index, to = c(0,100))
+  )
+```
+
+```{r, include=FALSE}
+ggplot(data=dataset_scaled, aes(x=tot_index))+geom_histogram(bins=100)+
+  labs(title = "Opportunity Index: Histogram", x="Opportunity Index", y="Count")+
+  theme_classic()
+```
+
+```{r, echo=FALSE}
+ggplot(data=dataset_scaled, aes(x=PBlack, y =tot_index))+
+  geom_point(alpha = .6, cex = .75)+ # Use alpha to control the transparency of the points and cex to control their size
+  geom_smooth(method = "lm")+
+  labs(x="Black (%)", y = "Combined Opportunity Index")+ # Add labels to the x and y axes
+  scale_x_continuous(labels = scales::percent)+ # Use the scales package to convert X-axis to percentages
+  theme_minimal() #Use themes to eliminate extra shading on plots
+```
+
+```{r, echo=FALSE}
+ggplot(data = dataset_scaled) +
+  geom_point(aes(x = tot_index, y = hou_index, color = location), alpha = 0.7, size = 0.6) +
+  labs(x = "Opportunity Index", y = "Housing", color = "Location",
+       title = "Opportunity Index vs Housing in Madison City Region",
+       caption = "Source: Location Affordability Index Data") 
+```
+
+While it is evident that accessibility to housing is linked to a higher opportunity index, the latter is very low in southern neighborhoods, as shown in the following graphics that depict a bivariate comparison between housing and opportunity.
+
+```{r, echo=FALSE}
+library(sf)
+dataset_map <- left_join(mdn_trt, dataset_scaled, by="GEOID") |> 
+  st_as_sf()
+
+ggplot()+
+  geom_sf(data = dataset_map, aes(color = tot_index, fill = tot_index))+
+  labs(fill = "Opportunity Index", , 
+       caption = "Source: Location Affordability Index Data") +
+  scale_fill_distiller(type = "div")+
+  scale_color_distiller(type = "div")+
+  guides(color = "none")+
+  theme_void()
+
+```
+
+As shown previously, housing affordability intertwines with displacement phenomena such as gentrification, and ultimately can lead to homelessness. I argue that both displacement and homelessness, are closely related to physical and mental public health indicators, such as high rates of anxiety and depression, as well as physical health issues that are a common hint of substance use disorder. With this in mind, I filtered the most alarming prevalences on health indicators related to greater economic and housing vulnerability, which work as a preventive analysis to point to future policy recommendations that provide housing options adjusted to the needs of population in these specific areas. The following map shows its concentration within different tracts, highlighting concerning areas such as tracts in the south, southwest and northeast.
+
+```{r, include=FALSE}
+acs_vars <- c("B25003H_001", "B25003H_002", "B25003B_001", "B25003B_002")
+
+pr_own <- get_acs(geography = "tract", variables = acs_vars, state = "WI", output = "wide", year = 2021) |> 
+  mutate(
+    B25003H_001E = ifelse(B25003H_001E == 0, .01, B25003H_001E),
+    B25003H_002E = ifelse(B25003H_002E == 0, .01, B25003H_002E),
+        B25003B_001E = ifelse(B25003B_001E == 0, .01, B25003B_001E),
+    B25003B_002E = ifelse(B25003B_002E == 0, .01, B25003B_002E),
+    pr_housing = (B25003H_002E/B25003H_001E)/(B25003B_002E/B25003B_001E)) |> 
+  select(GEOID, pr_housing)
+
+acs_vars <- c(
+"C15002H_001", 
+"C15002H_003",
+"C15002H_008",
+"C15002B_001",
+"C15002B_003",
+"C15002B_008"
+)
+
+pr_ed <- get_acs(geography = "tract", variables = acs_vars, state = "WI", output = "wide", year = 2021) |> 
+  mutate(
+C15002H_001E = ifelse(C15002H_001E == 0, .01, C15002H_001E), 
+C15002H_003E = ifelse(C15002H_003E == 0, .01, C15002H_003E) ,
+C15002H_008E = ifelse(C15002H_008E == 0, .01, C15002H_008E),
+C15002B_001E = ifelse(C15002B_001E == 0, .01, C15002B_001E),
+C15002B_003E = ifelse(C15002B_003E == 0, .01, C15002B_003E),
+C15002B_008E = ifelse(C15002B_008E == 0, .01, C15002B_008E),
+    pr_ed = ((C15002H_003E+C15002H_008E)/C15002H_001E)/(C15002B_003E+C15002B_008E)/C15002B_001E) |> 
+  select(GEOID, pr_ed)
+
+acs_vars <- c(
+  "B17001H_001",
+  "B17001H_002",
+  "B17001B_001",
+  "B17001B_002"
+)
+
+pr_pov <- get_acs(geography = "tract", variables = acs_vars, state = "WI", output = "wide", year = 2021) |> 
+  mutate(
+    B17001H_001E = ifelse(B17001H_001E == 0, .01, B17001H_001E),
+    B17001H_002E = ifelse(B17001H_002E == 0, .01, B17001H_002E),
+    B17001B_001E = ifelse(B17001B_001E == 0, .01, B17001B_001E),
+    B17001B_002E = ifelse(B17001B_002E == 0, .01, B17001B_002E),
+    pr_pov = ((B17001H_002E/B17001H_001E)/(B17001B_002E/B17001B_001E))
+  ) |> 
+  select(GEOID, pr_pov)
+```
+
+```{r, include=FALSE}
+dataset <- list(pr_own, pr_ed, pr_pov) |> reduce(left_join, by="GEOID")
+
+dataset <- dataset |> 
+  mutate(
+  MSA_Flag = case_when(substr(GEOID, 3, 5) %in% c("025") ~ 1, TRUE ~ 0),
+  Tri_County_Flag = case_when(substr(GEOID, 3, 5) %in% c("025") ~ 1, TRUE ~ 0))
+
+madison <- dataset |> filter(MSA_Flag == 1)
+```
+
+```{r, include=FALSE}
+cdc_places <- read_csv("data_raw/PLACES__Local_Data_for_Better_Health__Census_Tract_Data_2023_release_20240417.csv")
+```
+
+```{r, include=FALSE}
+cdc_places1 <- cdc_places |> pivot_wider(
+  id_cols = LocationName,
+  names_from = MeasureId, values_from = Data_Value)
+```
+
+```{r, include=FALSE}
+cdc_places |> select(MeasureId, Measure, Data_Value_Type, Data_Value_Unit) |> distinct() |> gt()
+```
+
+```{r, include=FALSE}
+madison <- left_join(madison, cdc_places1, by= c("GEOID" = "LocationName"))
+```
+
+```{r, include=FALSE}
+madison <-madison |> 
+  mutate(
+    percentile_housing = percent_rank(pr_housing),
+    percentile_education = percent_rank(pr_ed),
+    percentile_poverty = percent_rank(pr_pov),
+    cat_housing = case_when(
+      percentile_housing < .25 ~ "Low",
+      percentile_housing > .75 ~ "High",
+      .default = "Moderate"),
+    cat_education = case_when(
+      percentile_education < .25 ~ "Low",
+      percentile_education > .75 ~ "High",
+      .default = "Moderate"),
+    cat_poverty = case_when(
+      percentile_poverty < .25 ~ "Low",
+      percentile_poverty > .75 ~ "High",
+      .default = "Moderate"))
+```
+
+```{r, echo=FALSE}
+madison |> 
+  group_by(cat_housing) |> 
+  summarise(
+    COPD = mean(COPD, na.rm=TRUE),
+    LPA = mean(LPA, na.rm=TRUE),
+    ARTHRITIS = mean(ARTHRITIS, na.rm=TRUE),
+    COREM = mean(COREM, na.rm=TRUE),
+    SLEEP = mean(SLEEP, na.rm=TRUE),
+    BPMED = mean(BPMED, na.rm=TRUE),
+    PHLTH = mean(PHLTH, na.rm=TRUE),
+    DENTAL = mean(DENTAL, na.rm=TRUE),
+    MHLTH = mean(MHLTH, na.rm=TRUE),
+    BPHIGH = mean(BPHIGH, na.rm=TRUE),
+    GHLTH = mean(GHLTH, na.rm=TRUE),
+    CSMOKING = mean(CSMOKING, na.rm=TRUE),
+    HIGHCOL = mean(HIGHCHOL, na.rm=TRUE),
+    COREW = mean(COREW, na.rm=TRUE)
+  ) |> 
+  pivot_longer(cols = -1) |> 
+  pivot_wider(names_from = "cat_housing", values_from = "value") |> 
+  select(Name = name, Low, Moderate, High) |> 
+  gt() |> 
+  fmt_percent(2:4, decimals = 2, scale_values = FALSE)
+```
+
+```{r, include=FALSE}
+madison <- left_join(madison, mdn_city_tracts, by=c("GEOID" = "GEOID.1"))
+```
+
+```{r, echo=FALSE}
+#mapping of health indicators and housing 
+ggplot() +
+  geom_sf(data = madison, aes(fill = cat_housing, geometry = geometry), color = "white", size = 0.1)  + # Corrected placement of parenthesis
+  scale_fill_manual(name = "Health Indicators", 
+                    values = c("Moderate" = "lightsteelblue3", "Low" = "lightsteelblue1", "High" = "lightsteelblue4")) +
+  labs(title = "Housing", caption = "Source: 2022 PLACES tract-level") +
+  theme_minimal() +
+  theme(panel.background = element_blank()) +                   
+  coord_sf(datum = NA)
+```
+
+### Conclusion of Analysis
+
+The analysis presented shows that southern neighborhoods near Allied Drive and South Park Street are the most affected and vulnerable in terms of economic, educational and access to housing. According to the report for the south side, it is also mentioned that apart from low income renters, the most concerning sector in these areas is the homeless population. Although there is no data source that indicates the exact concentration of the unhoused population in the city or in neighborhoods of the south. The present analysis demonstrates an overlap of variables that may indicate a greater risk of homelessness, as well as a greater propensity for substance use.
+
+Homelessness reached its highest in Madison city during 2013 and seems to have receded, nevertheless, its crucial to bring a further analysis on housing stress and other socioeconomic factors that determine specific needs of vulnerable sectors of the population. These considerations are crucial to point additional requirements specific to the people who are burdened by housing costs or lacking housing. These distinct needs could also mean a robustly supplied labor market that includes additional sources of capital needed to fund supportive services, such as the requirement for rehabilitation, drug counseling and employment services.
+
+### Implications for Policy and Impact
+
+As a general consideration, federal assistance for affordable housing projects has been shrinking or is flat, and this means substantial challenges to the development of affordable housing not only in Madison, but nationwide.
+
+Current policy responses on a state level provide a maximum annual credit allocation for affodable housing projects of either 4% or 9% of the eligible basis of a project depending on factors such as the type of development. The county has a public-private partnership policy and programming education initiative, called the Dane County Housing Initiative (DCHI), for affordable housing that provides resources to assist with public housing needs by facilitating outreach programs and technical assistance. The county’s level of responsibility in this matter is minimal and it has provided some inaccuracy in tax credit level projects.
+
+There are some policy strengths on the city level, such as the funding provided for affordable housing through higher end developments. There is a 25 million affordable housing fund created by the city and the city also actively recruits developers; aligning their recruitment with federal cycles. Housing First is a city initiative that shows how merely community based building can transform previously dangerous areas into more livable communities. In addition, the city provides any landlord to discriminate against people who do not have a current residential address. The city has been trying to implement new creative policies but these have been stopped by state law that often overrides the city decisions.
+
+For mid-sized cities as Madison, the most significant problems are cost related, people are being displaced from their neighborhoods because of price, additionally demand for local housing is high and location is a critical factor. In this sense, it has been challenging to build housing in some parts of the city because of zoning regulations that prevent expanding residential uses or shifting their density. There is a debate between municipal policies and developer initiatives, for instance, the need to keep specific aspects of the urban environment the same. Another issue is that there is limited land on the city but the city has a map of area suitability for affordable housing construction. The scoring data on the map comes from the Wisconsin Housing and Economic Development Authority (WHEDA) state geographic targeting. The main issue, again is that it does not consider student populations. Plus, developers have continued to build projects on areas that are already attended by enough affordable housing. Municipal leaders created a development district initiative that identifies areas in the comprehensive plan, and is focused on neighborhood planning, zoning overlay, and urban design districts.
+
+The current demand for affordable housing is huge and the city must continue to meet this need in collaboration with developers and programs. The city has already started to make efforts to meet these needs, however besides targeting the most disadvantaged sectors, the need for proper and quality affordable housing is crucial. Affordable housing in the areas studied in this report must facilitate the reintegration of vulnerable sectors to society as well as ensuring their recovery.
+
+It is crucial that the policies applied avoid gentrification, displacement and racial segregation by allowing housing of all types and prices in all neighborhoods. It is suitable to reconsider the potential benefits of zoning that includes multiple uses and attracts an heterogeneous population, increasing housing options and rely on policies that are more permissive in terms of density. Zoning changes must be made with a serious investment in affordability, to avoid benefiting those at the highest income levels, which means curbing the development of market-rate high-rises, among others. I recommend to boost and collect for more programs towards using Tax Increment Financing (TIF) for affordability and its rules should be flexible to increase access to this fund. Another suggestion includes providing mixed financing for developers, and new sources of revenue by charging developers impact or bonding fees.
+
+Focusing on those deprived sectors, another suggestion is to enforce housing policies for specific vulnerable population such as homeless, post prison population, and others. It would be interesting to be able to build as a collaborative project between a non-profit real estate developer and a non-profit healthcare provider, that can provide market rate housing and team up with organizations specialized in providing services for former homeless populations and those who experience substance use disorders.
+
+#### Further considerations and side effects
+
+By studying the case of other cities where similar policies have been applied, such as Houston, analyzes to apply these policies require additional evidence concerning income and employment. Beneficiaries and recipients of these policies, often become ineligible for rental subsidies that are key to maintaining housing.
+
+The recommended policies would work best with purpose-built social housing. For affordable housing developments, analyzes must pay attention to acquisition and construction costs, which are the most expensive part of housing assistance.
+
+Housing First is a policy initiative that has worked efficiently in cities like Houston, however its processes themselves can be limiting, stigmatizing and leave people without ongoing support due to later phase assessments. Consequently, these policies should consider concerns beyond case management, counseling, and other emotional supports. The proposed policies could include a preventive approach as a systemic response to homelessness that helps people not need these programs in the first place.
+
+### References
+
+::: {#refs}
+:::

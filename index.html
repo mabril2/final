@@ -1,0 +1,3231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabriela Abril Reyes">
+<meta name="dcterms.date" content="2024-05-10">
+
+<title>Term Assignment</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="05_final_files/libs/clipboard/clipboard.min.js"></script>
+<script src="05_final_files/libs/quarto-html/quarto.js"></script>
+<script src="05_final_files/libs/quarto-html/popper.min.js"></script>
+<script src="05_final_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="05_final_files/libs/quarto-html/anchor.min.js"></script>
+<link href="05_final_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="05_final_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="05_final_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="05_final_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="05_final_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Term Assignment</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabriela Abril Reyes </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 10, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="neighborhood-determinants-of-opioid-use-in-madison-wisconsin" class="level2">
+<h2 class="anchored" data-anchor-id="neighborhood-determinants-of-opioid-use-in-madison-wisconsin">Neighborhood Determinants of Opioid Use in Madison, Wisconsin</h2>
+<section id="context-and-background" class="level3">
+<h3 class="anchored" data-anchor-id="context-and-background">Context and Background</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Madison, Wisconsin is the capital city of its state, located west of Milwaukee, and the largest city within Dane County. It is located in the center of the county 77 miles west of Milwaukee and 122 miles northwest of Chicago. Madison surrounds the city of Monona and other villages. The city shares borders with four big suburbs and eight additional smaller suburbs. Its total area comprises 94.03 square miles, of which 76.79 is land and 17.24 is water. For this reason, it is usually described as The City of Four Lakes due to its geographical conditions. Downtown Madison is situated on an isthmus between Lakes Monona and Mendota, giving it a character of “lake-city-lake”. Its geography has given a characterization of landscaped lakeshores, parks, and bicycle paths. Madison is also a city that was subject to redlining and established a chronic racial segregation that has contributed to increasing health inequities in the area.</p>
+<p>To understand Madison’s demographic context, it is crucial to note that the population trend of the central urbanized area growth projection is almost 5 times higher than smaller urbanized and rural zones outside of the metropolitan area. The population growth in the City of Madison has been steady for decades, at an incremental increase of just 1% per year, even during the Great Recession of 2007–2009. There is a majority of white population with minimal interracial mixing. However, the Hispanic population grew at a rate of 101% between 2000 to 2010, compared to the Non-Hispanic population growth rate of 11%. Nowadays, each minority group represents similar proportions of the city’s population, that is approximately 7 percent each.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Getting data from the 2017-2021 5-year ACS</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Getting data from the 2007-2011 5-year ACS</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<div id="ktyfrctrcl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ktyfrctrcl table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ktyfrctrcl thead, #ktyfrctrcl tbody, #ktyfrctrcl tfoot, #ktyfrctrcl tr, #ktyfrctrcl td, #ktyfrctrcl th {
+  border-style: none;
+}
+
+#ktyfrctrcl p {
+  margin: 0;
+  padding: 0;
+}
+
+#ktyfrctrcl .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ktyfrctrcl .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ktyfrctrcl .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ktyfrctrcl .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ktyfrctrcl .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ktyfrctrcl .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ktyfrctrcl .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ktyfrctrcl .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ktyfrctrcl .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ktyfrctrcl .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ktyfrctrcl .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ktyfrctrcl .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ktyfrctrcl .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ktyfrctrcl .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ktyfrctrcl .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ktyfrctrcl .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ktyfrctrcl .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ktyfrctrcl .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ktyfrctrcl .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ktyfrctrcl .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ktyfrctrcl .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ktyfrctrcl .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ktyfrctrcl .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ktyfrctrcl .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ktyfrctrcl .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ktyfrctrcl .gt_left {
+  text-align: left;
+}
+
+#ktyfrctrcl .gt_center {
+  text-align: center;
+}
+
+#ktyfrctrcl .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ktyfrctrcl .gt_font_normal {
+  font-weight: normal;
+}
+
+#ktyfrctrcl .gt_font_bold {
+  font-weight: bold;
+}
+
+#ktyfrctrcl .gt_font_italic {
+  font-style: italic;
+}
+
+#ktyfrctrcl .gt_super {
+  font-size: 65%;
+}
+
+#ktyfrctrcl .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ktyfrctrcl .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ktyfrctrcl .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ktyfrctrcl .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ktyfrctrcl .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ktyfrctrcl .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ktyfrctrcl .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings gt_spanner_row">
+<th rowspan="2" id="Geography" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Geography</th>
+<th colspan="4" id="Non-Hispanic Population" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">Non-Hispanic Population</span></th>
+<th rowspan="2" id="Latinx" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Latinx</th>
+<th colspan="4" id="Non-Hispanic Population (%)" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">Non-Hispanic Population (%)</span></th>
+<th rowspan="2" id="Latinx" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Latinx</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="White" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">White</th>
+<th id="Black" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Black</th>
+<th id="Asian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Asian</th>
+<th id="Other" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Other</th>
+<th id="White" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">White</th>
+<th id="Black" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Black</th>
+<th id="Asian" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Asian</th>
+<th id="Other" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Other</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="NAME">Madison city, Wisconsin</td>
+<td class="gt_row gt_right" headers="pop_white">191,034</td>
+<td class="gt_row gt_right" headers="pop_black">17,735</td>
+<td class="gt_row gt_right" headers="pop_asian">23,577</td>
+<td class="gt_row gt_right" headers="pop_other">12,290</td>
+<td class="gt_row gt_right" headers="pop_latino">20,811</td>
+<td class="gt_row gt_right" headers="p_white">72.0%</td>
+<td class="gt_row gt_right" headers="p_black">6.7%</td>
+<td class="gt_row gt_right" headers="p_asian">8.9%</td>
+<td class="gt_row gt_right" headers="p_other">4.6%</td>
+<td class="gt_row gt_right" headers="p_latino">7.8%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>tm_polygons: Deprecated tmap v3 code detected. Code translated to v4</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Madison has a population of 269,840, making it the second most populous city in Wisconsin. Regarding neighborhood constitution throughout history, the city is divided in major areas, such as the University of Wisconsin campus at the east and downtown; the north and south were areas predominately occupied by less income population and the west side by higher income inhabitants. A defining event on Madison’s development was in 1954 when the university developed a farm on the western edge, which has impulsed growth along the suburbs. As seen on the scatter plot, income concentration is closely linked to race, being the white population the one with the greatest concentration.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Madison started having urban sprawl issues in the 1970s and a plan was then proposed to create State Street as Madison’s civic transit and pedestrian center, giving way to the Capitol Center building, a pioneer in providing housing in the city center. This marks special attention to the downtown area, since historically the city has had planning initiatives to increase housing offers in the center; for example, tax incremental financing and permitting before demolishing buildings and creating urban design standards that have given it national recognition for having one of the best public open space systems in the US. For the same reason, the city has been subject to several zoning restrictions, for instance prohibiting industrial and commercial uses on the lake shore.</p>
+<section id="opioid-crisis" class="level4">
+<h4 class="anchored" data-anchor-id="opioid-crisis">Opioid crisis</h4>
+<p>The opioid epidemic is one of the largest non-infectious public health crises facing the United States today. The estimated national level overdose deaths increased 35% from 2020 to 2021. Although the opioid epidemic has become a national crisis, the burden of the epidemic is not equally distributed across states or across the country, therefore it is substantial to do a more nuanced examination at the local level based on the unique community needs in order to address the opioid crisis.</p>
+<p>In Wisconsin, there was an increase of 50% visits to the emergency department due to opioid overdose between 2016 and 2017 <span class="citation" data-cites="Healthy_Dane_Collaborative_2021">(<a href="#ref-Healthy_Dane_Collaborative_2021" role="doc-biblioref">Collaborative 2021</a>)</span>. This is partly attributed to the high potency of synthetic opioids, but it is also attributed to do social determinants. On a county scale, Dane is considered a high-risk area, according to Healthy Dane Org, a community collaborative comprised of 4 hospitals of the county, Public Health Madison and the county.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Specifically, Dane County’s black residents’ overdose is three times higher than white residents’ overdoses and there is a 575% higher increase in cocaine and opioid mortality in black people versus 184% increase in white people. Even if white consumption is much higher, mortality rates in black communities have increased greatly. Madison’s overdose death rate has skyrocketed as well. Furthermore, interactions with law enforcement in the city indicate a considerable increase in illegal opioid uses and set a precedent that sheds light in areas that need greater attention within the city.</p>
+<p>Noting that Madison is becoming one of the main opioid hubs in the state, it is crucial to trace a linkage between opioid use concentrations with indicators of structural racism in housing, such as employment and education.</p>
+</section>
+<section id="housing-crisis" class="level4">
+<h4 class="anchored" data-anchor-id="housing-crisis">Housing crisis</h4>
+<p>Housing accessibility is a constant concern in Madison. The city has suffered a housing crisis in the past few years. The lack of affordable housing is concerning in the city, 50% of renters pay more than 30% of their income in rent, according to <span class="citation" data-cites="luque2019housing">(<a href="#ref-luque2019housing" role="doc-biblioref">Luque et al. 2019</a>)</span>. The housing crisis in Madison also means that since 2007, the number of homeowners has not changed, and all of the household growth has been just from renters. Even if there has been a historical trend of shrinking household size, which is expected to be an average of 2.03 by 2040, between 2007 and 2015, renters increased by 17,000. This represents a huge jump in need of more than 5000 units that the city has not met. Additionally, there are 7000–8000 non-student renters who are spending more than half of their income on rental units, creating severe individual economic stress. The following table systematically describes Madison’s neighborhoods changes in housing tenure as well as cost burden based upon change in income.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div id="nspmnksaug" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nspmnksaug table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#nspmnksaug thead, #nspmnksaug tbody, #nspmnksaug tfoot, #nspmnksaug tr, #nspmnksaug td, #nspmnksaug th {
+  border-style: none;
+}
+
+#nspmnksaug p {
+  margin: 0;
+  padding: 0;
+}
+
+#nspmnksaug .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#nspmnksaug .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nspmnksaug .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nspmnksaug .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nspmnksaug .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nspmnksaug .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nspmnksaug .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nspmnksaug .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nspmnksaug .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#nspmnksaug .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#nspmnksaug .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nspmnksaug .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nspmnksaug .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nspmnksaug .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nspmnksaug .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nspmnksaug .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nspmnksaug .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nspmnksaug .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#nspmnksaug .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nspmnksaug .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nspmnksaug .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nspmnksaug .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nspmnksaug .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nspmnksaug .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nspmnksaug .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nspmnksaug .gt_left {
+  text-align: left;
+}
+
+#nspmnksaug .gt_center {
+  text-align: center;
+}
+
+#nspmnksaug .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nspmnksaug .gt_font_normal {
+  font-weight: normal;
+}
+
+#nspmnksaug .gt_font_bold {
+  font-weight: bold;
+}
+
+#nspmnksaug .gt_font_italic {
+  font-style: italic;
+}
+
+#nspmnksaug .gt_super {
+  font-size: 65%;
+}
+
+#nspmnksaug .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#nspmnksaug .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nspmnksaug .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#nspmnksaug .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#nspmnksaug .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#nspmnksaug .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#nspmnksaug .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Income Change" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Income Change</th>
+<th id="Tracts" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Tracts</th>
+<th id="Ownership" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Ownership</th>
+<th id="Rented" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Rented</th>
+<th id="Cost Burden" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Cost Burden</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Income Change">Growing</td>
+<td class="gt_row gt_right" headers="Tracts">27</td>
+<td class="gt_row gt_right" headers="Ownership">55.1%</td>
+<td class="gt_row gt_right" headers="Rented">44.9%</td>
+<td class="gt_row gt_right" headers="Cost Burden">28.7%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Income Change">Middle</td>
+<td class="gt_row gt_right" headers="Tracts">34</td>
+<td class="gt_row gt_right" headers="Ownership">51.5%</td>
+<td class="gt_row gt_right" headers="Rented">48.5%</td>
+<td class="gt_row gt_right" headers="Cost Burden">34.5%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Income Change">Shrinking</td>
+<td class="gt_row gt_right" headers="Tracts">9</td>
+<td class="gt_row gt_right" headers="Ownership">30.2%</td>
+<td class="gt_row gt_right" headers="Rented">69.8%</td>
+<td class="gt_row gt_right" headers="Cost Burden">46.6%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Income Change">Uncategorized</td>
+<td class="gt_row gt_right" headers="Tracts">2</td>
+<td class="gt_row gt_right" headers="Ownership">NaN</td>
+<td class="gt_row gt_right" headers="Rented">NaN</td>
+<td class="gt_row gt_right" headers="Cost Burden">NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<p>Even if the opioid epidemic is multi-faceted in its complexity, according to <span class="citation" data-cites="schendl2022spatial">(<a href="#ref-schendl2022spatial" role="doc-biblioref">Schendl, Park, and Xu 2022</a>)</span> there is no single set of variables that can be used to explain the opioid epidemic across all geographic scales and opiate classifications. The social context of opioid use and misuse is not homogeneous for all sociodemographic populations. Social determinants play a major role in the identification of vulnerable populations to opioid use, misuse, and overdose. Generally, these social determinants include race/ethnicity, gender, age, socioeconomic status, and education level. There is a general consensus that higher concentrations of families in poverty, higher levels of unemployment, and lower levels of educational attainment (high school education or less) are associated with an increase in the rate of opioid overdoses on a national scale. In this report I will explore the entanglement between these social determinants with housing accessibility.</p>
+</section>
+</section>
+<section id="approach" class="level3">
+<h3 class="anchored" data-anchor-id="approach">Approach</h3>
+<p>My report analyzes how the opioid and drug use in economically vulnerable populations is tied to the housing crisis in Madison. The goal is to reveal the overall contribution that socioeconomic factors have on the opioid epidemic, and its associated effects and considerations for an intervention through housing. I decided to focus on the city of Madison due to its importance within the county and because it has often been recognized for its progressive and inclusive policies; however, little has been said about the existing barriers towards certain segments of the population.</p>
+<p>Existing research emphasizes the importance of addressing complex and underlying issues at the root of this overdose crisis, such as housing accessibility as a critical social determinant of health within the opioid epidemic. Some studies conducted in other cities of similar size in the US show that housing instability is associated with physical and mental health concerns. For example, trauma, increased mortality rates, and substance use disorders. Other recommendations include studying discriminatory policies related to housing, employment, and policing, as well as the implicit biases embedded in these processes given that they can impact the ability of vulnerable population to overcome this issue.</p>
+<p>Second, the averages in health equity conditions presented state and nationally do not adequately capture inequities between populations. I analyzed the Dane County’s Community Health Needs Assessment surveys applied to different racial communities within the county. The survey showed that mental health was the most critical need linked to rent burden, as most respondents indicated that their neighborhoods do not have affordable housing.</p>
+<p>When linking housing affordability with the opioid crisis in a county level, certain racial groups are dramatically more affected. To contextualize the racial structure of the county, the following map depicts racial distribution in the county. Differences in racial presence evidence Black isolation and its dissimilarity with other races:</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>tm_polygons: Deprecated tmap v3 code detected. Code translated to v4</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div id="fkixpxriah" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fkixpxriah table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fkixpxriah thead, #fkixpxriah tbody, #fkixpxriah tfoot, #fkixpxriah tr, #fkixpxriah td, #fkixpxriah th {
+  border-style: none;
+}
+
+#fkixpxriah p {
+  margin: 0;
+  padding: 0;
+}
+
+#fkixpxriah .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fkixpxriah .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fkixpxriah .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fkixpxriah .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fkixpxriah .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fkixpxriah .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fkixpxriah .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fkixpxriah .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fkixpxriah .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fkixpxriah .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fkixpxriah .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fkixpxriah .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fkixpxriah .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fkixpxriah .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fkixpxriah .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fkixpxriah .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fkixpxriah .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fkixpxriah .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fkixpxriah .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fkixpxriah .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fkixpxriah .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fkixpxriah .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fkixpxriah .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fkixpxriah .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fkixpxriah .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fkixpxriah .gt_left {
+  text-align: left;
+}
+
+#fkixpxriah .gt_center {
+  text-align: center;
+}
+
+#fkixpxriah .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fkixpxriah .gt_font_normal {
+  font-weight: normal;
+}
+
+#fkixpxriah .gt_font_bold {
+  font-weight: bold;
+}
+
+#fkixpxriah .gt_font_italic {
+  font-style: italic;
+}
+
+#fkixpxriah .gt_super {
+  font-size: 65%;
+}
+
+#fkixpxriah .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fkixpxriah .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fkixpxriah .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fkixpxriah .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fkixpxriah .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fkixpxriah .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fkixpxriah .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="County" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">County</th>
+<th id="isolation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">isolation</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="County">Dane</td>
+<td class="gt_row gt_right" headers="isolation">0.127724</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div id="zuamtohhmy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zuamtohhmy table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zuamtohhmy thead, #zuamtohhmy tbody, #zuamtohhmy tfoot, #zuamtohhmy tr, #zuamtohhmy td, #zuamtohhmy th {
+  border-style: none;
+}
+
+#zuamtohhmy p {
+  margin: 0;
+  padding: 0;
+}
+
+#zuamtohhmy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zuamtohhmy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zuamtohhmy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zuamtohhmy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zuamtohhmy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zuamtohhmy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zuamtohhmy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zuamtohhmy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zuamtohhmy .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zuamtohhmy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zuamtohhmy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zuamtohhmy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zuamtohhmy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zuamtohhmy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zuamtohhmy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zuamtohhmy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zuamtohhmy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zuamtohhmy .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zuamtohhmy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zuamtohhmy .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zuamtohhmy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zuamtohhmy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zuamtohhmy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zuamtohhmy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zuamtohhmy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zuamtohhmy .gt_left {
+  text-align: left;
+}
+
+#zuamtohhmy .gt_center {
+  text-align: center;
+}
+
+#zuamtohhmy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zuamtohhmy .gt_font_normal {
+  font-weight: normal;
+}
+
+#zuamtohhmy .gt_font_bold {
+  font-weight: bold;
+}
+
+#zuamtohhmy .gt_font_italic {
+  font-style: italic;
+}
+
+#zuamtohhmy .gt_super {
+  font-size: 65%;
+}
+
+#zuamtohhmy .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zuamtohhmy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zuamtohhmy .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zuamtohhmy .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zuamtohhmy .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zuamtohhmy .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zuamtohhmy .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="County" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">County</th>
+<th id="dissimilarity" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">dissimilarity</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="County">Dane</td>
+<td class="gt_row gt_right" headers="dissimilarity">0.5150802</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<p>In this sense, I started linking this demographic data with a third wave of opioid use that Dane County is experiencing, in which more than half of all people who died of a drug overdose in the county between 2018 and 2020 were 25-44 years old. Nearly 2 in 3 people who died of a drug overdose death on this time period were male and the age-adjusted drug overdose death rate among Black people was more than 3 times the rate among White people. The county data reports that Black people have experienced sharp increases in drug overdose death rates in the past decade.</p>
+<p>“There is an urgent need to better understand and address the worsening racial inequities in drug overdose deaths. The rapid increase in drug overdose death rates among Black people in Dane County is related to long-standing inequities experienced by Black people, including higher rates of policing and incarceration as well as policies across sectors that negatively impact wellness and the ability of Black people to thrive.” <span class="citation" data-cites="deaths20">(<a href="#ref-deaths20" role="doc-biblioref">Madison and County</a>)</span>.</p>
+<section id="precedents" class="level4">
+<h4 class="anchored" data-anchor-id="precedents">Precedents</h4>
+<p>I depart from the work of <span class="citation" data-cites="luque2019housing">(<a href="#ref-luque2019housing" role="doc-biblioref">Luque et al. 2019</a>)</span> book, which gives an overview of the effectiveness of existing federal and state housing programs in the United States, such as the LIHTC and TIF programs. I mainly focused on Chapter 1, which reviews the case of the City of Madison in Wisconsin as an example of a mid-west city with serious housing affordability problems but strong economic fundamentals.</p>
+<p><span class="citation" data-cites="schendl2022spatial">(<a href="#ref-schendl2022spatial" role="doc-biblioref">Schendl, Park, and Xu 2022</a>)</span> article talks about the social determinants of health framework used to identify the potential related socioeconomic factors associated with opioid use and misuse in Milwaukee County. The authors begin by establishing descriptive statistics of opioid overdose deaths and then compare them with the distribution of socioeconomic factors such as socioeconomic disadvantage, which includes poverty rate and others. The second main component includes labor occupations, low educational attainment with a focus on minority population. As a third component is the relationship between age and income inequality and finally college education. These components were related to each other and the resulting ones are the variables of the final analyses. The association of these variables with the overdose mortality rate demonstrated that the spatial influence on the opioid crisis is a whole county issue rather than an isolated problem within certain communities, which suggests the same situation for Dane County. The precedent’s workflow served as a referent to organize the data analysis steps that will be explained in the following sections.</p>
+</section>
+</section>
+<section id="data-sources" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources">Data Sources</h3>
+<p>This research also aims to investigate how structural racism determines the vulnerability of certain population groups to be affected by the opioid epidemic. Taking as a precedent the extensive analysis of <span class="citation" data-cites="schendl2022spatial">(<a href="#ref-schendl2022spatial" role="doc-biblioref">Schendl, Park, and Xu 2022</a>)</span>, for this report I limit my focus to the areas of socioeconomic disadvantage such as employment: considering levels of poverty, housing ownership and education from an intersectional lens that focuses on the Black inhabitants of the city, given the precedent conditions.</p>
+<p>The workflow of the research dragged data from the American Community Survey (ACS) 5-Year estimates using Social Explorer for population structure such as race by tract and racial isolation. I also use this source for demographic characteristics such as income relations and residential segregation. I used LTDB Data for income evolution and comparisons across the county and map them. I also work with HUD Location Affordability Index (version 3.0) and EPA EJSCREEN, to join them and create standardized scores in terms of employment and economy, housing and a combined total index that allows visualizing the opportunity level in the different areas of the city. I generate a bivariate comparison between opportunity and housing in Madison City. Finally, I include information on health outcomes from the 2022 PLACES tract-level data set, from which I will pay attention to health indicators such as overall physical health, especially strokes, as well as mental health, including depression, and cognitive disabilities.</p>
+<p>I pay particular attention to the south side of the city, specifically in the South Park Street Neighborhood. Noting that neighborhood income inequality is identified as an indicator of opioid overdose potential, additional indicators for my analysis are homelessness and race, rented and owned housing concentration by race, as well as labor occupations and educational attainment mapped in the city, to evaluate their influence on the issue. I brought data related to the latter indicators from the Madison Neighborhood Indicators Project. I also drew information from the Wisconsin Department of Health Services.</p>
+</section>
+<section id="data-description-and-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-description-and-analysis">Data Description and Analysis</h3>
+<p>The population growth local trends speak about the residence location decisions by comparing the different ethnicities and their income levels. In the case of Madison, minority population is mostly settled in areas located to the south and on the periphery of the city, which are the same that demonstrate the highest shortage of affordable housing, disinvestment and segregation. In the same vein, many of the historically red-lined neighborhoods in the south continue to struggle with high credit denial rates, as well as to deal with issues such as rising property values, poverty, crime, factory emissions, among others.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Inhabitants of these vulnerable zones are often very close to other neighborhoods that have undergone urban renewal, and therefore there is a linkage between being more likely to development investment and become gentrified. This, in turn inflates market housing costs by restricting supply in desirable areas. Housing market conditions, in conjunction with demographic change, and economic vulnerability mark the susceptibility of neighborhoods to other problems such as displacement, exclusion and segregation. The figure above reflects the evolution of income concentration, and suggest an increase in income population in south and north areas, as a result of displacement. With the antecedents presented, we could say that future impacts of the housing affordability issue are likely to occur en different areas of the city.</p>
+<p>In the context of this crisis and in relation to the income concentration in certain zones, these neighborhoods also concentrate the largest number of renters.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Middle-income students or young professionals, have experienced the inflation of housing prices in areas close to the center or the campus. However, the most affected populations in relation to concentrations of rented and owned housing are families below the poverty level, people of color, and populations without a college degree either current students or with an educational attainment less than college or high school. According to the Analysis of Impediments to the Fair Housing Choice “The ability for households to generate income is largely dependent on levels of educational attainment, which in turn creates more opportunity for choice within the housing market. Disparities in education lead to disparities in earnings, which is an indirect impediment to fair housing choice within the City.”</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The harsh realities of the most disadvantaged groups, such as homeless, people with substance use disorder (SUD), and children contrast with the city’s solid economic growth and the shifting from a government-based economy to a consumer services system and high-tech industry.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Additionally, the occupation in the industry that predominates in the different tracts can point not only to income levels but also to establishing a relationship between opioid use and overdose rates with indicators of the occupations with the greatest physical work demands and least access to paid sick leave.</p>
+<p>According to the <span class="citation" data-cites="impediments">(<a href="#ref-impediments" role="doc-biblioref">Madison Community Development Division</a>)</span> of the city, due to reduction in median income in 2016, combined with rising rents, the typical Black household could only afford the typical rental in two areas in North and South Madison. This indicates a shortage of affordable housing options to the lowest income households in Madison, exacerbated by the effect of higher-income households necessarily renting down within the market.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-55-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The map showed above, represents the gross rent values in the Madison region and county, where the darkest are the most affordable compared to the most expensive in lighter blues. What is concerning about the effects of the lack of housing affordability on the Black population is that even if they represent approximately 8% of the population; these same households represent over 50% of the homeless count in the City of Madison. Black individuals are 27 times more likely to be homeless than White individuals, 15 times more likely if American Indian rather than White, 10 times more likely if multiracial rather than White, and 7 times more likely than White Hispanic/Latino Households.</p>
+<p>The City of Madison has planned to accommodate future housing needs is through infill and redevelopment in existing and planning activity centers and in the downtown and Isthmus areas. These areas were projected to accommodate well over 50% of all new households in the city between 2010 and 2050. However, this does not ensure that minority populations have access to live in these neighborhoods, due to the social challenges that intersect.</p>
+<p>If we look at the central isthmus of the city, there are disparities in access to housing. For instance, a disparity is seen in these areas between the growing number of homeless black individuals and families. Although Madison has low levels of segregation between White population and people of color <span class="citation" data-cites="impediments">(<a href="#ref-impediments" role="doc-biblioref">Madison Community Development Division</a>)</span>, the index is high in segregation between White population with Black and Hispanics/Latinos population, and therefore their opportunity index as well.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>While it is evident that accessibility to housing is linked to a higher opportunity index, the latter is very low in southern neighborhoods, as shown in the following graphics that depict a bivariate comparison between housing and opportunity.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown previously, housing affordability intertwines with displacement phenomena such as gentrification, and ultimately can lead to homelessness. I argue that both displacement and homelessness, are closely related to physical and mental public health indicators, such as high rates of anxiety and depression, as well as physical health issues that are a common hint of substance use disorder. With this in mind, I filtered the most alarming prevalences on health indicators related to greater economic and housing vulnerability, which work as a preventive analysis to point to future policy recommendations that provide housing options adjusted to the needs of population in these specific areas. The following map shows its concentration within different tracts, highlighting concerning areas such as tracts in the south, southwest and northeast.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div id="gumypyycsp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gumypyycsp table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#gumypyycsp thead, #gumypyycsp tbody, #gumypyycsp tfoot, #gumypyycsp tr, #gumypyycsp td, #gumypyycsp th {
+  border-style: none;
+}
+
+#gumypyycsp p {
+  margin: 0;
+  padding: 0;
+}
+
+#gumypyycsp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gumypyycsp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gumypyycsp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gumypyycsp .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gumypyycsp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gumypyycsp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gumypyycsp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gumypyycsp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gumypyycsp .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#gumypyycsp .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#gumypyycsp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gumypyycsp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gumypyycsp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gumypyycsp .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gumypyycsp .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gumypyycsp .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gumypyycsp .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gumypyycsp .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#gumypyycsp .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gumypyycsp .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gumypyycsp .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gumypyycsp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gumypyycsp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gumypyycsp .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gumypyycsp .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gumypyycsp .gt_left {
+  text-align: left;
+}
+
+#gumypyycsp .gt_center {
+  text-align: center;
+}
+
+#gumypyycsp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gumypyycsp .gt_font_normal {
+  font-weight: normal;
+}
+
+#gumypyycsp .gt_font_bold {
+  font-weight: bold;
+}
+
+#gumypyycsp .gt_font_italic {
+  font-style: italic;
+}
+
+#gumypyycsp .gt_super {
+  font-size: 65%;
+}
+
+#gumypyycsp .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#gumypyycsp .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gumypyycsp .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gumypyycsp .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gumypyycsp .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gumypyycsp .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gumypyycsp .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Name</th>
+<th id="Low" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Low</th>
+<th id="Moderate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Moderate</th>
+<th id="High" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">High</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">COPD</td>
+<td class="gt_row gt_right" headers="Low">3.90%</td>
+<td class="gt_row gt_right" headers="Moderate">4.45%</td>
+<td class="gt_row gt_right" headers="High">4.14%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">LPA</td>
+<td class="gt_row gt_right" headers="Low">15.68%</td>
+<td class="gt_row gt_right" headers="Moderate">16.60%</td>
+<td class="gt_row gt_right" headers="High">15.08%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">ARTHRITIS</td>
+<td class="gt_row gt_right" headers="Low">19.40%</td>
+<td class="gt_row gt_right" headers="Moderate">21.39%</td>
+<td class="gt_row gt_right" headers="High">21.90%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">COREM</td>
+<td class="gt_row gt_right" headers="Low">42.84%</td>
+<td class="gt_row gt_right" headers="Moderate">43.08%</td>
+<td class="gt_row gt_right" headers="High">44.99%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">SLEEP</td>
+<td class="gt_row gt_right" headers="Low">24.77%</td>
+<td class="gt_row gt_right" headers="Moderate">26.12%</td>
+<td class="gt_row gt_right" headers="High">25.10%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">BPMED</td>
+<td class="gt_row gt_right" headers="Low">63.68%</td>
+<td class="gt_row gt_right" headers="Moderate">69.32%</td>
+<td class="gt_row gt_right" headers="High">70.20%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">PHLTH</td>
+<td class="gt_row gt_right" headers="Low">7.97%</td>
+<td class="gt_row gt_right" headers="Moderate">8.65%</td>
+<td class="gt_row gt_right" headers="High">8.03%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">DENTAL</td>
+<td class="gt_row gt_right" headers="Low">73.45%</td>
+<td class="gt_row gt_right" headers="Moderate">72.94%</td>
+<td class="gt_row gt_right" headers="High">75.98%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">MHLTH</td>
+<td class="gt_row gt_right" headers="Low">15.90%</td>
+<td class="gt_row gt_right" headers="Moderate">14.34%</td>
+<td class="gt_row gt_right" headers="High">13.05%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">BPHIGH</td>
+<td class="gt_row gt_right" headers="Low">23.18%</td>
+<td class="gt_row gt_right" headers="Moderate">25.75%</td>
+<td class="gt_row gt_right" headers="High">25.66%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">GHLTH</td>
+<td class="gt_row gt_right" headers="Low">10.47%</td>
+<td class="gt_row gt_right" headers="Moderate">11.40%</td>
+<td class="gt_row gt_right" headers="High">10.00%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">CSMOKING</td>
+<td class="gt_row gt_right" headers="Low">11.31%</td>
+<td class="gt_row gt_right" headers="Moderate">12.98%</td>
+<td class="gt_row gt_right" headers="High">11.46%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">HIGHCOL</td>
+<td class="gt_row gt_right" headers="Low">28.77%</td>
+<td class="gt_row gt_right" headers="Moderate">31.17%</td>
+<td class="gt_row gt_right" headers="High">31.46%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">COREW</td>
+<td class="gt_row gt_right" headers="Low">41.21%</td>
+<td class="gt_row gt_right" headers="Moderate">40.48%</td>
+<td class="gt_row gt_right" headers="High">41.51%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05_final_files/figure-html/unnamed-chunk-74-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion-of-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-of-analysis">Conclusion of Analysis</h3>
+<p>The analysis presented shows that southern neighborhoods near Allied Drive and South Park Street are the most affected and vulnerable in terms of economic, educational and access to housing. According to the report for the south side, it is also mentioned that apart from low income renters, the most concerning sector in these areas is the homeless population. Although there is no data source that indicates the exact concentration of the unhoused population in the city or in neighborhoods of the south. The present analysis demonstrates an overlap of variables that may indicate a greater risk of homelessness, as well as a greater propensity for substance use.</p>
+<p>Homelessness reached its highest in Madison city during 2013 and seems to have receded, nevertheless, its crucial to bring a further analysis on housing stress and other socioeconomic factors that determine specific needs of vulnerable sectors of the population. These considerations are crucial to point additional requirements specific to the people who are burdened by housing costs or lacking housing. These distinct needs could also mean a robustly supplied labor market that includes additional sources of capital needed to fund supportive services, such as the requirement for rehabilitation, drug counseling and employment services.</p>
+</section>
+<section id="implications-for-policy-and-impact" class="level3">
+<h3 class="anchored" data-anchor-id="implications-for-policy-and-impact">Implications for Policy and Impact</h3>
+<p>As a general consideration, federal assistance for affordable housing projects has been shrinking or is flat, and this means substantial challenges to the development of affordable housing not only in Madison, but nationwide.</p>
+<p>Current policy responses on a state level provide a maximum annual credit allocation for affodable housing projects of either 4% or 9% of the eligible basis of a project depending on factors such as the type of development. The county has a public-private partnership policy and programming education initiative, called the Dane County Housing Initiative (DCHI), for affordable housing that provides resources to assist with public housing needs by facilitating outreach programs and technical assistance. The county’s level of responsibility in this matter is minimal and it has provided some inaccuracy in tax credit level projects.</p>
+<p>There are some policy strengths on the city level, such as the funding provided for affordable housing through higher end developments. There is a 25 million affordable housing fund created by the city and the city also actively recruits developers; aligning their recruitment with federal cycles. Housing First is a city initiative that shows how merely community based building can transform previously dangerous areas into more livable communities. In addition, the city provides any landlord to discriminate against people who do not have a current residential address. The city has been trying to implement new creative policies but these have been stopped by state law that often overrides the city decisions.</p>
+<p>For mid-sized cities as Madison, the most significant problems are cost related, people are being displaced from their neighborhoods because of price, additionally demand for local housing is high and location is a critical factor. In this sense, it has been challenging to build housing in some parts of the city because of zoning regulations that prevent expanding residential uses or shifting their density. There is a debate between municipal policies and developer initiatives, for instance, the need to keep specific aspects of the urban environment the same. Another issue is that there is limited land on the city but the city has a map of area suitability for affordable housing construction. The scoring data on the map comes from the Wisconsin Housing and Economic Development Authority (WHEDA) state geographic targeting. The main issue, again is that it does not consider student populations. Plus, developers have continued to build projects on areas that are already attended by enough affordable housing. Municipal leaders created a development district initiative that identifies areas in the comprehensive plan, and is focused on neighborhood planning, zoning overlay, and urban design districts.</p>
+<p>The current demand for affordable housing is huge and the city must continue to meet this need in collaboration with developers and programs. The city has already started to make efforts to meet these needs, however besides targeting the most disadvantaged sectors, the need for proper and quality affordable housing is crucial. Affordable housing in the areas studied in this report must facilitate the reintegration of vulnerable sectors to society as well as ensuring their recovery.</p>
+<p>It is crucial that the policies applied avoid gentrification, displacement and racial segregation by allowing housing of all types and prices in all neighborhoods. It is suitable to reconsider the potential benefits of zoning that includes multiple uses and attracts an heterogeneous population, increasing housing options and rely on policies that are more permissive in terms of density. Zoning changes must be made with a serious investment in affordability, to avoid benefiting those at the highest income levels, which means curbing the development of market-rate high-rises, among others. I recommend to boost and collect for more programs towards using Tax Increment Financing (TIF) for affordability and its rules should be flexible to increase access to this fund. Another suggestion includes providing mixed financing for developers, and new sources of revenue by charging developers impact or bonding fees.</p>
+<p>Focusing on those deprived sectors, another suggestion is to enforce housing policies for specific vulnerable population such as homeless, post prison population, and others. It would be interesting to be able to build as a collaborative project between a non-profit real estate developer and a non-profit healthcare provider, that can provide market rate housing and team up with organizations specialized in providing services for former homeless populations and those who experience substance use disorders.</p>
+<section id="further-considerations-and-side-effects" class="level4">
+<h4 class="anchored" data-anchor-id="further-considerations-and-side-effects">Further considerations and side effects</h4>
+<p>By studying the case of other cities where similar policies have been applied, such as Houston, analyzes to apply these policies require additional evidence concerning income and employment. Beneficiaries and recipients of these policies, often become ineligible for rental subsidies that are key to maintaining housing.</p>
+<p>The recommended policies would work best with purpose-built social housing. For affordable housing developments, analyzes must pay attention to acquisition and construction costs, which are the most expensive part of housing assistance.</p>
+<p>Housing First is a policy initiative that has worked efficiently in cities like Houston, however its processes themselves can be limiting, stigmatizing and leave people without ongoing support due to later phase assessments. Consequently, these policies should consider concerns beyond case management, counseling, and other emotional supports. The proposed policies could include a preventive approach as a systemic response to homelessness that helps people not need these programs in the first place.</p>
+</section>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Healthy_Dane_Collaborative_2021" class="csl-entry" role="listitem">
+Collaborative, Healthy Dane. 2021. <span>“Dane County, Wisconsin Community Health Needs Assessment.”</span> <em>UW School of Medicine and Public Health</em>. <a href="https://bynder.uwhealth.org/m/1aec373ea926afe3/original/Community-Health-Needs-Assessment-2022-2024.pdf">https://bynder.uwhealth.org/m/1aec373ea926afe3/original/Community-Health-Needs-Assessment-2022-2024.pdf</a>.
+</div>
+<div id="ref-luque2019housing" class="csl-entry" role="listitem">
+Luque, Jaime P, Nuriddin Ikromov, William B Noseworthy, Jaime P Luque, Nuriddin Ikromov, and William B Noseworthy. 2019. <span>“Housing Affordability Crisis: The United States.”</span> <em>Affordable Housing Development: Financial Feasibility, Tax Increment Financing and Tax Credits</em>, 1–12.
+</div>
+<div id="ref-impediments" class="csl-entry" role="listitem">
+Madison Community Development Division, City of. <span>“<span>A</span>nalysis of <span>I</span>mpediments to <span>F</span>air <span>H</span>ousing <span>C</span>hoice.”</span> <a href="https://www.cityofmadison.com/dpced/community-development/documents/AI%20Summary%20FINAL.pdf" class="uri">https://www.cityofmadison.com/dpced/community-development/documents/AI%20Summary%20FINAL.pdf</a>.
+</div>
+<div id="ref-deaths20" class="csl-entry" role="listitem">
+Madison, Public Health, and Dane County. <span>“Drug Overdose Deaths in Dane County.”</span> <a href="https://www.publichealthmdc.com/documents/overdose_fatality_review_2022.pdf" class="uri">https://www.publichealthmdc.com/documents/overdose_fatality_review_2022.pdf</a>.
+</div>
+<div id="ref-schendl2022spatial" class="csl-entry" role="listitem">
+Schendl, Andrew, Gainbi Park, and Zengwang Xu. 2022. <span>“The Spatial Prevalence and Associated Factors of Opioid Overdose Mortality in Milwaukee County, Wisconsin (2003-2018).”</span> <em>Spatial and Spatio-Temporal Epidemiology</em> 43: 100535.
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
